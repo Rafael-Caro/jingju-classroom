@@ -15,7 +15,8 @@ var navigationBox;
 var navigationBoxH = 100;
 var banguX = [];
 var banguY = [];
-var cursorW = 3;
+var cursor;
+var cursorW = 5;
 
 var loaded;
 var playing;
@@ -58,7 +59,6 @@ function setup () {
     var banshis = [];
     for (var b = 0; b < banshi.length; b++) {
       var banshiName = banshi[b].name;
-      print(banshiName);
       banshis.push(banshiName)
     }
     var banshiLine = banshis.join(", ");
@@ -75,11 +75,13 @@ function setup () {
     .attribute("disabled", "true");
 
   navigationBox = new CreateNavigationBox();
+  cursor = new CreateCursor();
 }
 
 function draw () {
   background(255, 255, 204);
   navigationBox.displayBack();
+
   stroke(255);
   strokeWeight(2);
   noFill();
@@ -88,6 +90,13 @@ function draw () {
     vertex(banguX[i], banguY[i]);
   }
   endShape();
+
+  if (loaded && playing) {
+    currentTime = voiceTrack.currentTime();
+  }
+  cursor.update();
+  cursor.display();
+
   navigationBox.displayFront();
 }
 
@@ -148,7 +157,6 @@ function CreateNavigationBox () {
   this.clicked = function () {
     if (mouseX > this.x1 && mouseX < this.x2 && mouseY > this.y1 && mouseY < this.y2) {
       jump = map(mouseX, this.x1, this.x2, 0, trackDuration);
-      print(jump);
       if (playing) {
         banguTrack.jump(jump);
         voiceTrack.jump(jump);
@@ -156,8 +164,31 @@ function CreateNavigationBox () {
         jump = undefined;
       } else {
         currentTime = jump;
+        print(currentTime);
       }
     }
+  }
+}
+
+function CreateCursor () {
+  this.x;
+
+  this.update = function () {
+    this.x = map(currentTime, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
+    if (navigationBox.x2 - cursorW/2 - this.x < 0.1) {
+      playButton.html("Toca");
+      banguTrack.stop();
+      voiceTrack.stop();
+      accTrack.stop();
+      playing = false;
+      currentTime = 0;
+    }
+  }
+
+  this.display = function () {
+    stroke("yellow");
+    strokeWeight(cursorW);
+    line(this.x, navigationBox.y1+cursorW/2, this.x, navigationBox.y2-cursorW/2);
   }
 }
 
@@ -167,6 +198,7 @@ function audioLoader (mbid) {
   accTrack = loadSound("tracks/" + mbid + "-acc.mp3", function () {
     playButton.removeAttribute("disabled");
     loaded=true;
+    currentTime = 0;
   });
 }
 
@@ -189,6 +221,7 @@ function player () {
       banguTrack.jump(jump);
       voiceTrack.jump(jump);
       accTrack.jump(jump);
+      jump = undefined;
     }
     playing = true;
     playButton.html("Pausa");

@@ -11,6 +11,9 @@ var banguTrack;
 
 var selectMenu;
 var playButton;
+var voiceToggle;
+var accToggle;
+var banguToggle;
 var navigationBox;
 var navigationBoxH = 100;
 var banguX = [];
@@ -68,11 +71,27 @@ function setup () {
   }
 
   playButton = createButton("Toca")
-    .size(50, 50)
+    .size(100, 50)
     .position(leftExtraSpace+10, selectMenu.position()['y']+selectMenu.height+10)
     .mousePressed(player)
     .parent("sketch-holder")
     .attribute("disabled", "true");
+
+  voiceToggle = createCheckbox(' voz', true)
+    .position(leftExtraSpace+10, playButton.position()['y']+playButton.height+10)
+    .changed(muteTrack)
+    .parent("sketch-holder");
+  accToggle = createCheckbox(' jinghu', true)
+    .position(leftExtraSpace+10, voiceToggle.position()['y']+voiceToggle.height+10)
+    .changed(muteTrack)
+    .parent("sketch-holder");
+  banguToggle = createCheckbox(' bangu', true)
+    .position(leftExtraSpace+10, accToggle.position()['y']+accToggle.height+10)
+    .changed(muteTrack)
+    .parent("sketch-holder");
+  voiceToggle.attribute("disabled", "true");
+  accToggle.attribute("disabled", "true");
+  banguToggle.attribute("disabled", "true");
 
   navigationBox = new CreateNavigationBox();
   cursor = new CreateCursor();
@@ -107,6 +126,10 @@ function start () {
   var playing = false;
   var currentTime;
   var jump;
+
+  voiceToggle.attribute("disabled", "true");
+  accToggle.attribute("disabled", "true");
+  banguToggle.attribute("disabled", "true");
 
   var recording = recordingsInfo[mbid];
   trackDuration = recording.duration;
@@ -199,6 +222,9 @@ function audioLoader (mbid) {
     playButton.removeAttribute("disabled");
     loaded=true;
     currentTime = 0;
+    voiceToggle.removeAttribute("disabled");
+    accToggle.removeAttribute("disabled");
+    banguToggle.removeAttribute("disabled");
   });
 }
 
@@ -225,6 +251,26 @@ function player () {
     }
     playing = true;
     playButton.html("Pausa");
+  }
+}
+
+function muteTrack () {
+  if (loaded) {
+    if (voiceToggle.checked()) {
+      voiceTrack.setVolume(0.5);
+    } else {
+      voiceTrack.setVolume(0);
+    }
+    if (accToggle.checked()) {
+      accTrack.setVolume(0.5);
+    } else {
+      accTrack.setVolume(0);
+    }
+    if (banguToggle.checked()) {
+      banguTrack.setVolume(0.5);
+    } else {
+      banguTrack.setVolume(0);
+    }
   }
 }
 

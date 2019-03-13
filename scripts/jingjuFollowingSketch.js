@@ -12,7 +12,10 @@ var banguTrack;
 var selectMenu;
 var playButton;
 var navigationBox;
-var navigationBoxHeight = 100;
+var navigationBoxH = 100;
+var banguX = [];
+var banguY = [];
+var cursorW = 3;
 
 var loaded;
 var playing;
@@ -77,6 +80,14 @@ function setup () {
 function draw () {
   background(255, 255, 204);
   navigationBox.displayBack();
+  stroke(255);
+  strokeWeight(2);
+  noFill();
+  beginShape();
+  for (var i = 1; i < banguX.length; i++) {
+    vertex(banguX[i], banguY[i]);
+  }
+  endShape();
   navigationBox.displayFront();
 }
 
@@ -90,24 +101,37 @@ function start () {
 
   var recording = recordingsInfo[mbid];
   trackDuration = recording.duration;
+  bangu = recording.bangu;
+  for (var i = 0; i < bangu.length; i++) {
+    banguX.push(map(bangu[i].timeStamp, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2));
+  }
+  var bpms = [];
+  for (var i = 0; i < bangu.length; i++) {
+    bpms.push(bangu[i].bpm)
+  }
+  var maxBpm = Math.max.apply(null, bpms) + 10;
+  var minBpm = Math.min.apply(null, bpms.filter(bpm => bpm > 0)) - 10;
+  for (var i = 0; i < bangu.length; i++) {
+    banguY.push(map(bangu[i].bpm, minBpm, maxBpm, navigationBox.y2, navigationBox.y1))
+  }
 }
 
 function CreateNavigationBox () {
   this.x1 = leftExtraSpace + 10;
   this.x2 = width - 10;
-  this.y1 = height - navigationBoxHeight - 10;
+  this.y1 = height - navigationBoxH - 10;
   this.y2 = height - 10;
   this.w = this.x2 - this.x1;
 
   this.displayBack = function () {
     fill(0, 50);
     noStroke();
-    rect(this.x1, this.y1, this.w, navigationBoxHeight);
-    // for (var i = 0; i < samList.length; i++) {
+    rect(this.x1, this.y1, this.w, navigationBoxH);
+    // for (var i = 0; i < banguList.length; i++) {
     //   stroke(255);
     //   strokeWeight(1);
-    //   var samX = map(samList[i], 0, trackDuration, this.x1+navCursorW/2, this.x2-navCursorW/2);
-    //   line(samX, this.y1, samX, this.y2);
+    //   var x = map(banguList[i], 0, trackDuration, this.x1+cursorW/2, this.x2-cursorW/2);
+    //   line(x, this.y1, x, this.y2);
     // }
   }
 
@@ -138,9 +162,12 @@ function CreateNavigationBox () {
 }
 
 function audioLoader (mbid) {
+  banguTrack = loadSound("tracks/" + mbid + "-bangu.mp3");
   voiceTrack = loadSound("tracks/" + mbid + "-voice.mp3");
-  accTrack = loadSound("tracks/" + mbid + "-acc.mp3");
-  banguTrack = loadSound("tracks/" + mbid + "-bangu.wav", function () {playButton.removeAttribute("disabled");loaded=true;});
+  accTrack = loadSound("tracks/" + mbid + "-acc.mp3", function () {
+    playButton.removeAttribute("disabled");
+    loaded=true;
+  });
 }
 
 function player () {

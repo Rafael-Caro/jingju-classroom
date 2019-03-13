@@ -12,8 +12,11 @@ var banguTrack;
 var selectMenu;
 var playButton;
 var voiceToggle;
+var voiceSlider;
 var accToggle;
+var accSlider;
 var banguToggle;
+var banguSlider;
 var navigationBox;
 var navigationBoxH = 100;
 var banguX = [];
@@ -81,17 +84,38 @@ function setup () {
     .position(leftExtraSpace+10, playButton.position()['y']+playButton.height+10)
     .changed(muteTrack)
     .parent("sketch-holder");
-  accToggle = createCheckbox(' jinghu', true)
+  voiceSlider = createSlider(0, 100)
+    .value(50)
+    .size(100, 20)
     .position(leftExtraSpace+10, voiceToggle.position()['y']+voiceToggle.height+10)
+    .changed(updateVolume)
+    .parent("sketch-holder");
+  accToggle = createCheckbox(' jinghu', true)
+    .position(leftExtraSpace+10, voiceSlider.position()['y']+voiceSlider.height+20)
     .changed(muteTrack)
+    .parent("sketch-holder");
+  accSlider = createSlider(0, 100)
+    .value(50)
+    .size(100, 20)
+    .position(leftExtraSpace+10, accToggle.position()['y']+accToggle.height+10)
+    .changed(updateVolume)
     .parent("sketch-holder");
   banguToggle = createCheckbox(' bangu', true)
-    .position(leftExtraSpace+10, accToggle.position()['y']+accToggle.height+10)
+    .position(leftExtraSpace+10, accSlider.position()['y']+accSlider.height+20)
     .changed(muteTrack)
     .parent("sketch-holder");
+  banguSlider = createSlider(0, 100)
+    .value(50)
+    .size(100, 20)
+    .position(leftExtraSpace+10, banguToggle.position()['y']+banguToggle.height+10)
+    .changed(updateVolume)
+    .parent("sketch-holder");
   voiceToggle.attribute("disabled", "true");
+  voiceSlider.attribute("disabled", "true");
   accToggle.attribute("disabled", "true");
+  accSlider.attribute("disabled", "true");
   banguToggle.attribute("disabled", "true");
+  banguSlider.attribute("disabled", "true");
 
   navigationBox = new CreateNavigationBox();
   cursor = new CreateCursor();
@@ -128,8 +152,11 @@ function start () {
   var jump;
 
   voiceToggle.attribute("disabled", "true");
+  voiceSlider.attribute("disabled", "true");
   accToggle.attribute("disabled", "true");
+  accSlider.attribute("disabled", "true");
   banguToggle.attribute("disabled", "true");
+  banguSlider.attribute("disabled", "true");
 
   var recording = recordingsInfo[mbid];
   trackDuration = recording.duration;
@@ -223,8 +250,11 @@ function audioLoader (mbid) {
     loaded=true;
     currentTime = 0;
     voiceToggle.removeAttribute("disabled");
+    voiceSlider.removeAttribute("disabled");
     accToggle.removeAttribute("disabled");
+    accSlider.removeAttribute("disabled");
     banguToggle.removeAttribute("disabled");
+    banguSlider.removeAttribute("disabled");
   });
 }
 
@@ -272,6 +302,12 @@ function muteTrack () {
       banguTrack.setVolume(0);
     }
   }
+}
+
+function updateVolume () {
+  voiceTrack.setVolume(voiceSlider.value()/100);
+  accTrack.setVolume(accSlider.value()/100);
+  banguTrack.setVolume(banguSlider.value()/100);
 }
 
 function mouseClicked () {

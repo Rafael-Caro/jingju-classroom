@@ -1,5 +1,5 @@
 var mainHeight = 600;
-var mainWidth = 800;
+var mainWidth = 1000;
 var leftExtraSpace = 0;
 var topExtraSpace = 0;
 
@@ -22,6 +22,8 @@ var navigationBox;
 var navigationBoxH = 100;
 var banguX = [];
 var banguY = [];
+var lyrics;
+var lyricsBoxes = [];
 var cursor;
 var cursorW = 5;
 
@@ -40,6 +42,7 @@ var trackDuration;
 var currentTime;
 var jump;
 
+var headingLeft;
 var headingX;
 
 function preload () {
@@ -139,13 +142,12 @@ function setup () {
   navigationBox = new CreateNavigationBox();
   cursor = new CreateCursor();
 
-  var headingLeft = leftExtraSpace + 20 + selectMenu.width;
+  headingLeft = leftExtraSpace + 20 + selectMenu.width;
   headingX = headingLeft + (width - headingLeft) / 2
 }
 
 function draw () {
   background(255, 255, 204);
-  navigationBox.displayBack();
 
   if (selectMenu.value() != 'Elige') {
     textAlign(CENTER, TOP);
@@ -153,11 +155,23 @@ function draw () {
     strokeWeight(5);
     fill("Yellow");
     textSize(20);
-    text(title, headingX, 22);
+    text(title, headingX, topExtraSpace+22);
     noStroke();
     fill(0);
     textSize(18);
-    text(subtitle, headingX, 50);
+    text(subtitle, headingX, topExtraSpace+50);
+  }
+
+  fill(255);
+  stroke(0);
+  strokeWeight(1);
+  rect(headingLeft+10, topExtraSpace+100, width-headingLeft-30, navigationBox.y1-topExtraSpace-100-20);
+
+  navigationBox.displayBack();
+
+  for (var i = 0; i < lyricsBoxes.length; i++) {
+    lyricsBoxes[i].update();
+    lyricsBoxes[i].display();
   }
 
   stroke(255);
@@ -217,6 +231,11 @@ function start () {
   var minBpm = Math.min.apply(null, bpms.filter(bpm => bpm > 0)) - 10;
   for (var i = 0; i < bangu.length; i++) {
     banguY.push(map(bangu[i].bpm, minBpm, maxBpm, navigationBox.y2, navigationBox.y1))
+  }
+  lyrics = recording.lyrics;
+  for (var i = 0; i < lyrics.length; i++) {
+     var lyricsBox = new CreateLyricsBox(lyrics[i]);
+     lyricsBoxes.push(lyricsBox);
   }
 }
 
@@ -284,6 +303,30 @@ function CreateCursor () {
     stroke("yellow");
     strokeWeight(cursorW);
     line(this.x, navigationBox.y1+cursorW/2, this.x, navigationBox.y2-cursorW/2);
+  }
+}
+
+function CreateLyricsBox (lyrics) {
+  this.x1 = map(lyrics.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2)
+  this.x2 = map(lyrics.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2)
+  this.fill = color(0, 50);
+  this.stroke = color(255, 255, 204, 100);
+
+  this.update = function () {
+    if (cursor.x >= this.x1 && cursor.x <= this.x2) {
+      this.fill = color(255, 255, 0, 50);
+      this.stroke = color(255, 255, 0, 50);
+    } else {
+      this.fill = color(0, 50);
+      this.stroke = color(255, 255, 204, 100);
+    }
+  }
+
+  this.display = function () {
+    fill(this.fill);
+    stroke(this.stroke);
+    strokeWeight(1);
+    rect(this.x1, navigationBox.y1, this.x2-this.x1, navigationBoxH);
   }
 }
 

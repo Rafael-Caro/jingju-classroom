@@ -1267,6 +1267,140 @@
         "bpm": 123.61,
         "bangu": "gu"
       }
+    ],
+    "lyrics": [
+      {
+        "lyrics": "In ancient times there were Three Great Sages,",
+        "lyricsChinese": "昔日里有个三大贤，",
+        "start": 20.21,
+        "end": 45.87
+      },
+      {
+        "lyrics": "Liu Bei, Guan Yu and Zhang Fei, who swore brotherhood at the Peach Garden.",
+        "lyricsChinese": "刘关张结义在桃园。",
+        "start": 59.12,
+        "end": 68.2
+      },
+      {
+        "lyrics": "These brothers separated in Xuzhou,",
+        "lyricsChinese": "弟兄们徐州曾失散，",
+        "start": 76.69,
+        "end": 85.22
+      },
+      {
+        "lyrics": "but reunited with each other at Gucheng.",
+        "lyricsChinese": "古城相逢又团圆。",
+        "start": 94.14,
+        "end": 103.87
+      },
+      {
+        "lyrics": "Guan Yu, who came riding his horse, called to his brother Zhang Fei,",
+        "lyricsChinese": "关二爷马上呼三弟，",
+        "start": 111.52,
+        "end": 119.08
+      },
+      {
+        "lyrics": "but he stood at the city gate tower seething in anger.",
+        "lyricsChinese": "张翼德在城楼怒发冲冠。",
+        "start": 128.72,
+        "end": 137.88
+      },
+      {
+        "lyrics": "To their ears came…",
+        "lyricsChinese": "耳边厢又听——",
+        "start": 145.97,
+        "end": 150.65
+      },
+      {
+        "lyrics": "      …the shouts of a crowd:",
+        "lyricsChinese": "   ——人呐喊，",
+        "start": 150.65,
+        "end": 153.99
+      },
+      {
+        "lyrics": "Cai Yang’s army was approaching Gucheng.",
+        "lyricsChinese": "老蔡阳的人马来到了古城边。",
+        "start": 154.38,
+        "end": 159.04
+      },
+      {
+        "lyrics": "“You have just three drum calls”, said Zhang Fei.",
+        "lyricsChinese": "城楼上助你三通鼓，",
+        "start": 159.48,
+        "end": 163.31
+      },
+      {
+        "lyrics": "while the enemy’s emblems towered around his brother.",
+        "lyricsChinese": "十面旌旗壮壮威严。",
+        "start": 163.62,
+        "end": 167.04
+      },
+      {
+        "lyrics": "“Hua la la”, first drum call,",
+        "lyricsChinese": "哗喇喇打罢了头通鼓，",
+        "start": 167.53,
+        "end": 171.38
+      },
+      {
+        "lyrics": "and Guan Yu had drawn his sword and mounted his saddle.",
+        "lyricsChinese": "关二爷提刀跨雕鞍。",
+        "start": 171.77,
+        "end": 174.35
+      },
+      {
+        "lyrics": "“Hua la la”, second drum call,",
+        "lyricsChinese": "哗喇喇打罢了二通鼓，",
+        "start": 174.35,
+        "end": 177.45
+      },
+      {
+        "lyrics": "man and horse burned with excitement.",
+        "lyricsChinese": "人有精神马又欢。",
+        "start": 177.93,
+        "end": 180.99
+      },
+      {
+        "lyrics": "“Hua la la”, third drum call,",
+        "lyricsChinese": "哗喇喇打罢了三通鼓，",
+        "start": 181.3,
+        "end": 184.05
+      },
+      {
+        "lyrics": "and Cai Yang’s head rolled under his horse.",
+        "lyricsChinese": "蔡阳的人头落在马前。",
+        "start": 184.45,
+        "end": 187.35
+      },
+      {
+        "lyrics": "And thus the scoundrel’s fate came to its end,",
+        "lyricsChinese": "一来是老儿命该丧，",
+        "start": 187.61,
+        "end": 190.18
+      },
+      {
+        "lyrics": "and the two brothers finally reconciled.",
+        "lyricsChinese": "二来弟兄得团圆。",
+        "start": 190.46,
+        "end": 193.29
+      },
+      {
+        "lyrics": "“Worthy brother, don’t return to Chang’an”, he said,",
+        "lyricsChinese": "贤弟休回长安转，",
+        "start": 193.61,
+        "end": 196.42
+      },
+      {
+        "lyrics": "So they spent several years at this very land,",
+        "lyricsChinese": "就在这沙陀过几年、",
+        "start": 196.42,
+        "end": 203.38
+      },
+      {
+        "lyrics": "enjoying a leisurely life.",
+        "lyricsChinese": "落得个清闲。",
+        "start": 206.45,
+        "end": 226.66
+      }
     ]
   }
 }

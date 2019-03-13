@@ -10,6 +10,7 @@ var accTrack;
 var banguTrack;
 
 var selectMenu;
+var langButton;
 var playButton;
 var voiceToggle;
 var voiceSlider;
@@ -24,11 +25,22 @@ var banguY = [];
 var cursor;
 var cursorW = 5;
 
+var aria;
+var ariaChinese;
+var play;
+var playChinese;
+var character;
+var characterChinese;
+var title;
+var subtitle;
+
 var loaded;
 var playing;
 var trackDuration;
 var currentTime;
 var jump;
+
+var headingX;
 
 function preload () {
   recordingsInfo = loadJSON("files/recordingsInfo.json");
@@ -72,6 +84,13 @@ function setup () {
     var option = '"' + aria + '." ' + roleType + ": " + banshiLine + ' (' + duration + ')';
     selectMenu.option(option, mbid);
   }
+
+  langButton = createButton("中")
+    .size(30, 30)
+    .position(width-30-10, 10)
+    .mousePressed(langChange)
+    .parent("sketch-holder")
+    .attribute("disabled", "true");
 
   playButton = createButton("Toca")
     .size(100, 50)
@@ -119,11 +138,27 @@ function setup () {
 
   navigationBox = new CreateNavigationBox();
   cursor = new CreateCursor();
+
+  var headingLeft = leftExtraSpace + 20 + selectMenu.width;
+  headingX = headingLeft + (width - headingLeft) / 2
 }
 
 function draw () {
   background(255, 255, 204);
   navigationBox.displayBack();
+
+  if (selectMenu.value() != 'Elige') {
+    textAlign(CENTER, TOP);
+    stroke(0);
+    strokeWeight(5);
+    fill("Yellow");
+    textSize(20);
+    text(title, headingX, 22);
+    noStroke();
+    fill(0);
+    textSize(18);
+    text(subtitle, headingX, 50);
+  }
 
   stroke(255);
   strokeWeight(2);
@@ -151,6 +186,8 @@ function start () {
   var currentTime;
   var jump;
 
+  langButton.removeAttribute("disabled");
+  langButton.html("中");
   voiceToggle.attribute("disabled", "true");
   voiceSlider.attribute("disabled", "true");
   accToggle.attribute("disabled", "true");
@@ -159,6 +196,14 @@ function start () {
   banguSlider.attribute("disabled", "true");
 
   var recording = recordingsInfo[mbid];
+  aria = recording.aria;
+  ariaChinese = recording.ariaChinese;
+  play = recording.play;
+  playChinese = recording.playChinese;
+  character = recording.character;
+  characterChinese = recording.characterChinese;
+  title = '"' + aria + '"';
+  subtitle = play + ' (' + character + ')';
   trackDuration = recording.duration;
   bangu = recording.bangu;
   for (var i = 0; i < bangu.length; i++) {
@@ -308,6 +353,18 @@ function updateVolume () {
   voiceTrack.setVolume(voiceSlider.value()/100);
   accTrack.setVolume(accSlider.value()/100);
   banguTrack.setVolume(banguSlider.value()/100);
+}
+
+function langChange () {
+  if (langButton.html() == "中") {
+    title = ariaChinese;
+    subtitle = playChinese + " （" + characterChinese + "）"
+    langButton.html("ES");
+  } else {
+    title = '"' + aria + '"';
+    subtitle = play + ' (' + character + ')';
+    langButton.html("中");
+  }
 }
 
 function mouseClicked () {

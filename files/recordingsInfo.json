@@ -1,15 +1,17 @@
 {
   "14b9c5d7-d2a2-415c-838c-a4e876e8d895": {
-    "chineseTitle": "“昔日有个三大贤”——《珠帘寨》（李克用）",
     "aria": "En la antigüedad había tres grandes sabios",
+    "ariaChinese": "“昔日有个三大贤”",
     "play": "La fortaleza de Zhulian",
+    "playChinese": "《珠帘寨》",
     "character": "Li Keyong",
+    "characterChinese": "李克用",
+    "artist": "Tian Hao",
     "artistChinese": "田昊",
-    "hangdang": "行当",
+    "hangdang": "老生",
     "roleType": "laosheng",
-    "artistName": "Tian Hao",
+    "jinghu": "Zhang Lantian",
     "jinghuChinese": "张蓝天",
-    "jinghuName": "Zhang Lantian",
     "info": "https://musicbrainz.org/recording/14b9c5d7-d2a2-415c-838c-a4e876e8d895",
     "duration": 230.18,
     "banshi": [

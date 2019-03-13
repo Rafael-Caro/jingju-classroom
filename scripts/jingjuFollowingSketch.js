@@ -24,6 +24,8 @@ var banguX = [];
 var banguY = [];
 var lyrics;
 var lyricsBoxes = [];
+var lyricsBoxTop = topExtraSpace+110;
+var lyricsBoxBottom;
 var cursor;
 var cursorW = 5;
 
@@ -140,6 +142,7 @@ function setup () {
   banguSlider.attribute("disabled", "true");
 
   navigationBox = new CreateNavigationBox();
+  lyricsBoxBottom = navigationBox.y1-20;
   cursor = new CreateCursor();
 
   headingLeft = leftExtraSpace + 20 + selectMenu.width;
@@ -165,7 +168,7 @@ function draw () {
   fill(255);
   stroke(0);
   strokeWeight(1);
-  rect(headingLeft+10, topExtraSpace+100, width-headingLeft-30, navigationBox.y1-topExtraSpace-100-20);
+  rect(headingLeft+10, lyricsBoxTop, width-headingLeft-30, lyricsBoxBottom-lyricsBoxTop);
 
   navigationBox.displayBack();
 
@@ -234,7 +237,7 @@ function start () {
   }
   lyrics = recording.lyrics;
   for (var i = 0; i < lyrics.length; i++) {
-     var lyricsBox = new CreateLyricsBox(lyrics[i]);
+     var lyricsBox = new CreateLyricsBox(lyrics[i], i);
      lyricsBoxes.push(lyricsBox);
   }
 }
@@ -306,19 +309,30 @@ function CreateCursor () {
   }
 }
 
-function CreateLyricsBox (lyrics) {
+function CreateLyricsBox (lyrics, i) {
   this.x1 = map(lyrics.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2)
   this.x2 = map(lyrics.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2)
   this.fill = color(0, 50);
   this.stroke = color(255, 255, 204, 100);
+  this.txtBack = color(255, 0);
+  this.lyrics = lyrics.lyrics;
+  this.lyricsChinese = lyrics.lyricsChinese;
+  this.lyrics2display;
 
   this.update = function () {
     if (cursor.x >= this.x1 && cursor.x <= this.x2) {
       this.fill = color(255, 255, 0, 50);
       this.stroke = color(255, 255, 0, 50);
+      this.txtBack = color(255, 255, 0, 50);
     } else {
       this.fill = color(0, 50);
       this.stroke = color(255, 255, 204, 100);
+      this.txtBack = color(255, 0);
+    }
+    if (langButton.html() == "中") {
+      this.lyrics2display = this.lyrics;
+    } else {
+      this.lyrics2display = this.lyricsChinese;
     }
   }
 
@@ -327,6 +341,13 @@ function CreateLyricsBox (lyrics) {
     stroke(this.stroke);
     strokeWeight(1);
     rect(this.x1, navigationBox.y1, this.x2-this.x1, navigationBoxH);
+    fill(this.txtBack);
+    noStroke();
+    rect(headingLeft + 10, lyricsBoxTop + 20*i, width-headingLeft-30, 20);
+    textAlign(LEFT, BOTTOM);
+    textSize(15);
+    fill(0);
+    text(this.lyrics2display, headingLeft+20, lyricsBoxTop + 20 * i, width-headingLeft-30, 20);
   }
 }
 

@@ -281,7 +281,6 @@ function CreateNavigationBox () {
         jump = undefined;
       } else {
         currentTime = jump;
-        print(currentTime);
       }
     }
   }
@@ -310,8 +309,15 @@ function CreateCursor () {
 }
 
 function CreateLyricsBox (lyrics, i) {
-  this.x1 = map(lyrics.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2)
-  this.x2 = map(lyrics.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2)
+  this.start = lyrics.start
+  this.x1 = map(this.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
+  this.x2 = map(lyrics.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
+  this.y1 = navigationBox.y1;
+  this.y2 = navigationBox.y2;
+  this.lx1 = headingLeft + 10;
+  this.lx2 = width-20;
+  this.ly1 = lyricsBoxTop + 20*i;
+  this.ly2 = this.ly1+20;
   this.fill = color(0, 50);
   this.stroke = color(255, 255, 204, 100);
   this.txtBack = color(255, 0);
@@ -340,14 +346,29 @@ function CreateLyricsBox (lyrics, i) {
     fill(this.fill);
     stroke(this.stroke);
     strokeWeight(1);
-    rect(this.x1, navigationBox.y1, this.x2-this.x1, navigationBoxH);
+    rect(this.x1, this.y1, this.x2-this.x1, this.y2-this.y1);
     fill(this.txtBack);
     noStroke();
-    rect(headingLeft + 10, lyricsBoxTop + 20*i, width-headingLeft-30, 20);
+    rect(this.lx1, this.ly1, this.lx2-this.lx1, this.ly2-this.ly1);
     textAlign(LEFT, BOTTOM);
     textSize(15);
     fill(0);
-    text(this.lyrics2display, headingLeft+20, lyricsBoxTop + 20 * i, width-headingLeft-30, 20);
+    text(this.lyrics2display, this.lx1+10, this.ly1, this.lx2-this.lx1, this.ly2-this.ly1);
+  }
+
+  this.clicked = function () {
+    if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1 && mouseY < this.ly2) {
+      jump = this.start;
+      print(jump);
+      if (playing) {
+        banguTrack.jump(jump);
+        voiceTrack.jump(jump);
+        accTrack.jump(jump);
+        jump = undefined;
+      } else {
+        currentTime = jump;
+      }
+    }
   }
 }
 
@@ -434,6 +455,9 @@ function langChange () {
 function mouseClicked () {
   if (loaded) {
     navigationBox.clicked();
+    for (var i = 0; i < lyricsBoxes.length; i++) {
+      lyricsBoxes[i].clicked();
+    }
   }
 }
 

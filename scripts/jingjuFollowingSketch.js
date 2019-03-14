@@ -22,10 +22,12 @@ var navigationBox;
 var navigationBoxH = 100;
 var banguX = [];
 var banguY = [];
+var banshiBoxW = 200;
 var lyrics;
 var lyricsBoxes = [];
 var lyricsBoxTop = topExtraSpace+110;
 var lyricsBoxBottom;
+var lyricsShift = 0;
 var cursor;
 var cursorW = 5;
 
@@ -314,7 +316,7 @@ function CreateLyricsBox (lyrics, i) {
   this.x2 = map(lyrics.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
   this.y1 = navigationBox.y1;
   this.y2 = navigationBox.y2;
-  this.lx1 = headingLeft + 10;
+  this.lx1 = headingLeft + banshiBoxW + 10;
   this.lx2 = width-20;
   this.ly1 = lyricsBoxTop + 20*i;
   this.ly2 = this.ly1+20;
@@ -327,9 +329,16 @@ function CreateLyricsBox (lyrics, i) {
 
   this.update = function () {
     if (cursor.x >= this.x1 && cursor.x <= this.x2) {
-      this.fill = color(255, 255, 0, 50);
-      this.stroke = color(255, 255, 0, 50);
-      this.txtBack = color(255, 255, 0, 50);
+      this.fill = color(255, 255, 0, 100);
+      this.stroke = color(255, 255, 0, 100);
+      this.txtBack = color(255, 255, 0, 100);
+      if (this.ly1+lyricsShift < lyricsBoxTop) {
+        lyricsShift = lyricsBoxTop - this.ly1;
+        print(lyricsShift);
+      } else if (this.ly2+lyricsShift > lyricsBoxBottom) {
+        print(lyricsShift);
+        lyricsShift = lyricsBoxBottom - this.ly2;
+      }
     } else {
       this.fill = color(0, 50);
       this.stroke = color(255, 255, 204, 100);
@@ -347,17 +356,19 @@ function CreateLyricsBox (lyrics, i) {
     stroke(this.stroke);
     strokeWeight(1);
     rect(this.x1, this.y1, this.x2-this.x1, this.y2-this.y1);
-    fill(this.txtBack);
-    noStroke();
-    rect(this.lx1, this.ly1, this.lx2-this.lx1, this.ly2-this.ly1);
-    textAlign(LEFT, BOTTOM);
-    textSize(15);
-    fill(0);
-    text(this.lyrics2display, this.lx1+10, this.ly1, this.lx2-this.lx1, this.ly2-this.ly1);
+    if (this.ly2+lyricsShift > lyricsBoxTop && this.ly1+lyricsShift < lyricsBoxBottom) {
+      fill(this.txtBack);
+      noStroke();
+      rect(this.lx1, this.ly1+lyricsShift, this.lx2-this.lx1, this.ly2-this.ly1);
+      textAlign(LEFT, BOTTOM);
+      textSize(15);
+      fill(0);
+      text(this.lyrics2display, this.lx1+10, this.ly1+lyricsShift, this.lx2-this.lx1, this.ly2-this.ly1);
+    }
   }
 
   this.clicked = function () {
-    if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1 && mouseY < this.ly2) {
+    if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1+lyricsShift && mouseY < this.ly2+lyricsShift) {
       jump = this.start;
       print(jump);
       if (playing) {

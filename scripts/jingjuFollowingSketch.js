@@ -117,7 +117,7 @@ function setup () {
     .changed(updateVolume)
     .parent("sketch-holder");
   accToggle = createCheckbox(' jinghu', true)
-    .position(leftExtraSpace+10, voiceSlider.position()['y']+voiceSlider.height+20)
+    .position(leftExtraSpace+10, voiceSlider.position()['y']+voiceSlider.height+50)
     .changed(muteTrack)
     .parent("sketch-holder");
   accSlider = createSlider(0, 100)
@@ -127,7 +127,7 @@ function setup () {
     .changed(updateVolume)
     .parent("sketch-holder");
   banguToggle = createCheckbox(' bangu', true)
-    .position(leftExtraSpace+10, accSlider.position()['y']+accSlider.height+20)
+    .position(leftExtraSpace+10, accSlider.position()['y']+accSlider.height+50)
     .changed(muteTrack)
     .parent("sketch-holder");
   banguSlider = createSlider(0, 100)

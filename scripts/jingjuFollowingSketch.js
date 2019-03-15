@@ -24,6 +24,7 @@ var banguX = [];
 var banguY = [];
 var banshiBoxes = [];
 var banshiBoxW = 150;
+var banshiBoxH = 30;
 var lyricsBoxes = [];
 var lyricsBoxTop = topExtraSpace+110;
 var lyricsBoxBottom;
@@ -412,7 +413,7 @@ function CreateBanshiBox (banshi, i) {
   this.x1 = map(this.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
   this.x2 = map(banshi.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
   this.y1 = navigationBox.y1;
-  this.h = 20;
+  this.h = banshiBoxH;
   this.fill = color(0, 50);
   this.stroke = color(255, 255, 204, 100);
   this.txtBack = color(255, 0);
@@ -440,7 +441,8 @@ function CreateBanshiBox (banshi, i) {
 
   this.display = function () {
     fill(this.fill);
-    stroke(this.stroke);
+    // stroke(this.stroke);
+    stroke(0);
     strokeWeight(1);
     rect(this.x1, this.y1, this.x2-this.x1, this.h);
     var banshiDisplayed = false;

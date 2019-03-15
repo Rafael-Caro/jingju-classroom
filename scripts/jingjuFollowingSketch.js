@@ -22,8 +22,8 @@ var navigationBox;
 var navigationBoxH = 100;
 var banguX = [];
 var banguY = [];
-var banshiBoxW = 200;
-var lyrics;
+var banshiBoxes = [];
+var banshiBoxW = 150;
 var lyricsBoxes = [];
 var lyricsBoxTop = topExtraSpace+110;
 var lyricsBoxBottom;
@@ -160,6 +160,7 @@ function draw () {
     strokeWeight(5);
     fill("Yellow");
     textSize(20);
+    textStyle(BOLD);
     text(title, headingX, topExtraSpace+22);
     noStroke();
     fill(0);
@@ -177,6 +178,11 @@ function draw () {
   for (var i = 0; i < lyricsBoxes.length; i++) {
     lyricsBoxes[i].update();
     lyricsBoxes[i].display();
+  }
+
+  for (var i = 0; i < banshiBoxes.length; i++) {
+    banshiBoxes[i].update();
+    banshiBoxes[i].display();
   }
 
   stroke(255);
@@ -200,10 +206,12 @@ function draw () {
 function start () {
   var mbid = selectMenu.value()
   audioLoader(mbid);
-  var loaded = false;
-  var playing = false;
-  var currentTime;
-  var jump;
+  loaded = false;
+  playing = false;
+  currentTime = undefined;
+  jump = undefined;
+  lyricsShift = 0;
+
 
   langButton.removeAttribute("disabled");
   langButton.html("中");
@@ -237,10 +245,20 @@ function start () {
   for (var i = 0; i < bangu.length; i++) {
     banguY.push(map(bangu[i].bpm, minBpm, maxBpm, navigationBox.y2, navigationBox.y1))
   }
-  lyrics = recording.lyrics;
+  var lyrics = recording.lyrics;
   for (var i = 0; i < lyrics.length; i++) {
      var lyricsBox = new CreateLyricsBox(lyrics[i], i);
      lyricsBoxes.push(lyricsBox);
+  }
+  var banshi = recording.banshi;
+  for (var i = 0; i < banshi.length; i++) {
+    var banshiBox = new CreateBanshiBox(banshi[i], i);
+    banshiBoxes.push(banshiBox);
+    var lines = banshi[i].lines;
+    for (var j = lines[0]; j <= lines[1]; j++) {
+      var banshiLine = new CreateBanshiLine (j);
+      banshiBox.banshiLines.push(banshiLine);
+    }
   }
 }
 
@@ -294,12 +312,14 @@ function CreateCursor () {
   this.update = function () {
     this.x = map(currentTime, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
     if (navigationBox.x2 - cursorW/2 - this.x < 0.1) {
+      print('stop');
       playButton.html("Toca");
       banguTrack.stop();
       voiceTrack.stop();
       accTrack.stop();
       playing = false;
       currentTime = 0;
+      lyricsShift = 0;
     }
   }
 
@@ -315,7 +335,7 @@ function CreateLyricsBox (lyrics, i) {
   this.x1 = map(this.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
   this.x2 = map(lyrics.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
   this.y1 = navigationBox.y1;
-  this.y2 = navigationBox.y2;
+  this.h = navigationBoxH;
   this.lx1 = headingLeft + banshiBoxW + 10;
   this.lx2 = width-20;
   this.ly1 = lyricsBoxTop + 20*i;
@@ -326,17 +346,16 @@ function CreateLyricsBox (lyrics, i) {
   this.lyrics = lyrics.lyrics;
   this.lyricsChinese = lyrics.lyricsChinese;
   this.lyrics2display;
+  this.hidden;
 
   this.update = function () {
-    if (cursor.x >= this.x1 && cursor.x <= this.x2) {
-      this.fill = color(255, 255, 0, 100);
-      this.stroke = color(255, 255, 0, 100);
-      this.txtBack = color(255, 255, 0, 100);
+    if (cursor.x >= this.x1 && cursor.x < this.x2) {
+      this.fill = color(255, 255, 0, 75);
+      this.stroke = color(255, 255, 0, 75);
+      this.txtBack = color(255, 255, 0, 75);
       if (this.ly1+lyricsShift < lyricsBoxTop) {
         lyricsShift = lyricsBoxTop - this.ly1;
-        print(lyricsShift);
       } else if (this.ly2+lyricsShift > lyricsBoxBottom) {
-        print(lyricsShift);
         lyricsShift = lyricsBoxBottom - this.ly2;
       }
     } else {
@@ -355,20 +374,25 @@ function CreateLyricsBox (lyrics, i) {
     fill(this.fill);
     stroke(this.stroke);
     strokeWeight(1);
-    rect(this.x1, this.y1, this.x2-this.x1, this.y2-this.y1);
+    rect(this.x1, this.y1, this.x2-this.x1, this.h);
     if (this.ly2+lyricsShift > lyricsBoxTop && this.ly1+lyricsShift < lyricsBoxBottom) {
+      this.hidden = false;
       fill(this.txtBack);
       noStroke();
-      rect(this.lx1, this.ly1+lyricsShift, this.lx2-this.lx1, this.ly2-this.ly1);
+      rect(this.lx1, this.ly1+lyricsShift, this.lx2-this.lx1, 20);
       textAlign(LEFT, BOTTOM);
+      textStyle(NORMAL);
       textSize(15);
       fill(0);
-      text(this.lyrics2display, this.lx1+10, this.ly1+lyricsShift, this.lx2-this.lx1, this.ly2-this.ly1);
+      text(this.lyrics2display, this.lx1+10, this.ly1+lyricsShift, this.lx2-this.lx1, 20);
+    } else {
+      this.hidden = true;
     }
   }
 
   this.clicked = function () {
-    if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1+lyricsShift && mouseY < this.ly2+lyricsShift) {
+    if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1+lyricsShift && mouseY < this.ly2+lyricsShift
+       && !this.hidden) {
       jump = this.start;
       print(jump);
       if (playing) {
@@ -381,6 +405,84 @@ function CreateLyricsBox (lyrics, i) {
       }
     }
   }
+}
+
+function CreateBanshiBox (banshi, i) {
+  this.start = banshi.start
+  this.x1 = map(this.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
+  this.x2 = map(banshi.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
+  this.y1 = navigationBox.y1;
+  this.h = 20;
+  this.fill = color(0, 50);
+  this.stroke = color(255, 255, 204, 100);
+  this.txtBack = color(255, 0);
+  this.name = banshi.name;
+  this.nameChinese = banshi.nameChinese;
+  this.banshiLines = []
+  this.banshi2display;
+
+  this.update = function () {
+    if (cursor.x >= this.x1 && cursor.x < this.x2) {
+      this.fill = color(255, 255, 0, 75);
+      this.stroke = color(255, 255, 0, 75);
+      this.txtBack = color(255, 255, 0, 75);
+    } else {
+      this.fill = color(0, 50);
+      this.stroke = color(255, 255, 204, 100);
+      this.txtBack = color(255, 0);
+    }
+    if (langButton.html() == "中") {
+      this.banshi2display = this.name;
+    } else {
+      this.banshi2display = this.nameChinese;
+    }
+  }
+
+  this.display = function () {
+    fill(this.fill);
+    stroke(this.stroke);
+    strokeWeight(1);
+    rect(this.x1, this.y1, this.x2-this.x1, this.h);
+    var banshiDisplayed = false;
+    for (var i = 0; i < this.banshiLines.length; i++) {
+      var banshiLine = this.banshiLines[i];
+      if (banshiLine.y2+lyricsShift > lyricsBoxTop && banshiLine.y1+lyricsShift < lyricsBoxBottom) {
+        noStroke();
+        fill(this.txtBack);
+        rect(banshiLine.x1, banshiLine.y1+lyricsShift, banshiBoxW, 20)
+        if (!banshiDisplayed) {
+          textAlign(LEFT, BOTTOM);
+          textStyle(BOLD);
+          textSize(15);
+          fill(0);
+          text(this.banshi2display, banshiLine.x1+10, banshiLine.y1+lyricsShift, banshiBoxW, 20);
+          banshiDisplayed = true;
+        }
+      }
+    }
+  }
+
+  // this.clicked = function () {
+  //   if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1+lyricsShift && mouseY < this.ly2+lyricsShift) {
+  //     jump = this.start;
+  //     print(jump);
+  //     if (playing) {
+  //       banguTrack.jump(jump);
+  //       voiceTrack.jump(jump);
+  //       accTrack.jump(jump);
+  //       jump = undefined;
+  //     } else {
+  //       currentTime = jump;
+  //     }
+  //   }
+  // }
+}
+
+function CreateBanshiLine (i) {
+  this.x1 = headingLeft + 10;
+  this.x2 = this.x1+banshiBoxW;
+  this.y1 = lyricsBoxTop + 20 * i;
+  this.y2 = this.y1+20;
 }
 
 function audioLoader (mbid) {

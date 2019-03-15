@@ -447,6 +447,7 @@ function CreateBanshiBox (banshi, i) {
     for (var i = 0; i < this.banshiLines.length; i++) {
       var banshiLine = this.banshiLines[i];
       if (banshiLine.y2+lyricsShift > lyricsBoxTop && banshiLine.y1+lyricsShift < lyricsBoxBottom) {
+        banshiLine.hidden = false;
         noStroke();
         fill(this.txtBack);
         rect(banshiLine.x1, banshiLine.y1+lyricsShift, banshiBoxW, 20)
@@ -458,24 +459,30 @@ function CreateBanshiBox (banshi, i) {
           text(this.banshi2display, banshiLine.x1+10, banshiLine.y1+lyricsShift, banshiBoxW, 20);
           banshiDisplayed = true;
         }
+      } else {
+        banshiLine.hidden = true;
       }
     }
   }
 
-  // this.clicked = function () {
-  //   if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1+lyricsShift && mouseY < this.ly2+lyricsShift) {
-  //     jump = this.start;
-  //     print(jump);
-  //     if (playing) {
-  //       banguTrack.jump(jump);
-  //       voiceTrack.jump(jump);
-  //       accTrack.jump(jump);
-  //       jump = undefined;
-  //     } else {
-  //       currentTime = jump;
-  //     }
-  //   }
-  // }
+  this.clicked = function () {
+    for (var i = 0; i < this.banshiLines.length; i++) {
+      var banshiLine = this.banshiLines[i];
+      if (mouseX > banshiLine.x1 && mouseX < banshiLine.x2 && mouseY > banshiLine.y1+lyricsShift &&
+          mouseY < banshiLine.y2+lyricsShift && !banshiLine.hidden) {
+        jump = this.start;
+        print(jump);
+        if (playing) {
+          banguTrack.jump(jump);
+          voiceTrack.jump(jump);
+          accTrack.jump(jump);
+          jump = undefined;
+        } else {
+          currentTime = jump;
+        }
+      }
+    }
+  }
 }
 
 function CreateBanshiLine (i) {
@@ -483,6 +490,7 @@ function CreateBanshiLine (i) {
   this.x2 = this.x1+banshiBoxW;
   this.y1 = lyricsBoxTop + 20 * i;
   this.y2 = this.y1+20;
+  this.hidden;
 }
 
 function audioLoader (mbid) {
@@ -570,6 +578,9 @@ function mouseClicked () {
     navigationBox.clicked();
     for (var i = 0; i < lyricsBoxes.length; i++) {
       lyricsBoxes[i].clicked();
+    }
+    for (var i = 0; i < banshiBoxes.length; i++) {
+      banshiBoxes[i].clicked();
     }
   }
 }

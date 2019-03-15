@@ -107,7 +107,7 @@ function setup () {
     .attribute("disabled", "true");
 
   voiceToggle = createCheckbox(' voz', true)
-    .position(leftExtraSpace+10, playButton.position()['y']+playButton.height+10)
+    .position(leftExtraSpace+10, lyricsBoxTop)
     .changed(muteTrack)
     .parent("sketch-holder");
   voiceSlider = createSlider(0, 100)

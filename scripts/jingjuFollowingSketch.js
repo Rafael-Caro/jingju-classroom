@@ -4,6 +4,7 @@ var leftExtraSpace = 0;
 var topExtraSpace = 0;
 
 var recordingsInfo;
+var pitchTrack;
 
 var voiceTrack;
 var accTrack;
@@ -20,8 +21,6 @@ var banguToggle;
 var banguSlider;
 var navigationBox;
 var navigationBoxH = 100;
-// var banguX = [];
-// var banguY = [];
 var tempoCurve = [];
 var banshiBoxes = [];
 var banshiBoxW = 150;
@@ -35,6 +34,7 @@ var cursor;
 var cursorW = 5;
 
 var credits;
+var bpm;
 
 var loaded;
 var playing;
@@ -200,6 +200,11 @@ function draw () {
   cursor.display();
 
   navigationBox.displayFront();
+
+  if (loaded) {
+    bpm.update();
+    bpm.display();
+  }
 }
 
 function start () {
@@ -210,7 +215,9 @@ function start () {
   currentTime = undefined;
   jump = undefined;
   lyricsShift = 0;
+  bpm = new CreateBpm();
 
+  pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json')
 
   langButton.removeAttribute("disabled");
   langButton.html("中");
@@ -232,10 +239,6 @@ function start () {
   title = '"' + aria + '"';
   subtitle = play + ' (' + character + ')';
   trackDuration = recording.duration;
-  // bangu = recording.bangu;
-  // for (var i = 0; i < bangu.length; i++) {
-  //   banguX.push(map(bangu[i].timeStamp, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2));
-  // }
   var bpms = [];
   var banshi = recording.banshi;
   for (var i = 0; i < banshi.length; i++) {
@@ -454,6 +457,7 @@ function CreateBanshiBox (banshi, i) {
   this.x2 = map(banshi.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
   this.y1 = navigationBox.y1;
   this.h = banshiBoxH;
+  this.bangu = banshi.bangu;
   this.fill = color(0, 50);
   this.stroke = color(255, 255, 204, 100);
   this.txtBack = color(255, 0);
@@ -533,6 +537,31 @@ function CreateBanshiLine (i) {
   this.y1 = lyricsBoxTop + 20 * i;
   this.y2 = this.y1+20;
   this.hidden;
+}
+
+function CreateBpm () {
+  this.bpm;
+  this.style;
+  this.update = function () {
+    var bpm = pitchTrack[currentTime.toFixed(2)].bpm;
+    if (bpm=='s') {
+      this.style = ITALIC;
+      this.bpm = 'disperso';
+    } else if (bpm=='') {
+      this.bpm = '';
+    } else {
+      this.style = NORMAL;
+      this.bpm = str(bpm) + ' bpm';
+    }
+  }
+  this.display = function () {
+    textAlign(RIGHT, BOTTOM);
+    textStyle(this.style);
+    textSize(15);
+    noStroke();
+    fill(0);
+    text(this.bpm, headingLeft, lyricsBoxBottom);
+  }
 }
 
 function audioLoader (mbid) {

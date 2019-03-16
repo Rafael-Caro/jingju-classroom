@@ -20,8 +20,9 @@ var banguToggle;
 var banguSlider;
 var navigationBox;
 var navigationBoxH = 100;
-var banguX = [];
-var banguY = [];
+// var banguX = [];
+// var banguY = [];
+var tempoCurve = [];
 var banshiBoxes = [];
 var banshiBoxW = 150;
 var banshiBoxH = 30;
@@ -29,17 +30,11 @@ var lyricsBoxes = [];
 var lyricsBoxTop = topExtraSpace+110;
 var lyricsBoxBottom;
 var lyricsShift = 0;
+var strokes;
 var cursor;
 var cursorW = 5;
 
-var aria;
-var ariaChinese;
-var play;
-var playChinese;
-var character;
-var characterChinese;
-var title;
-var subtitle;
+var credits;
 
 var loaded;
 var playing;
@@ -167,6 +162,7 @@ function draw () {
     fill(0);
     textSize(18);
     text(subtitle, headingX, topExtraSpace+50);
+    credits.display();
   }
 
   fill(255);
@@ -189,11 +185,13 @@ function draw () {
   stroke(255);
   strokeWeight(2);
   noFill();
-  beginShape();
-  for (var i = 1; i < banguX.length; i++) {
-    vertex(banguX[i], banguY[i]);
+  for (var i = 0; i < tempoCurve.length; i++) {
+    beginShape();
+    for (var j = 0; j < tempoCurve[i].length; j++) {
+      vertex(tempoCurve[i][j][0], tempoCurve[i][j][1]);
+    }
+    endShape();
   }
-  endShape();
 
   if (loaded && playing) {
     currentTime = voiceTrack.currentTime();
@@ -224,6 +222,7 @@ function start () {
   banguSlider.attribute("disabled", "true");
 
   var recording = recordingsInfo[mbid];
+  credits = new CreateCredits(recording);
   aria = recording.aria;
   ariaChinese = recording.ariaChinese;
   play = recording.play;
@@ -233,33 +232,74 @@ function start () {
   title = '"' + aria + '"';
   subtitle = play + ' (' + character + ')';
   trackDuration = recording.duration;
-  bangu = recording.bangu;
-  for (var i = 0; i < bangu.length; i++) {
-    banguX.push(map(bangu[i].timeStamp, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2));
-  }
+  // bangu = recording.bangu;
+  // for (var i = 0; i < bangu.length; i++) {
+  //   banguX.push(map(bangu[i].timeStamp, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2));
+  // }
   var bpms = [];
-  for (var i = 0; i < bangu.length; i++) {
-    bpms.push(bangu[i].bpm)
-  }
-  var maxBpm = Math.max.apply(null, bpms) + 10;
-  var minBpm = Math.min.apply(null, bpms.filter(bpm => bpm > 0)) - 10;
-  for (var i = 0; i < bangu.length; i++) {
-    banguY.push(map(bangu[i].bpm, minBpm, maxBpm, navigationBox.y2, navigationBox.y1))
-  }
-  var lyrics = recording.lyrics;
-  for (var i = 0; i < lyrics.length; i++) {
-     var lyricsBox = new CreateLyricsBox(lyrics[i], i);
-     lyricsBoxes.push(lyricsBox);
-  }
   var banshi = recording.banshi;
   for (var i = 0; i < banshi.length; i++) {
     var banshiBox = new CreateBanshiBox(banshi[i], i);
     banshiBoxes.push(banshiBox);
     var lines = banshi[i].lines;
     for (var j = lines[0]; j <= lines[1]; j++) {
-      var banshiLine = new CreateBanshiLine (j);
+      var banshiLine = new CreateBanshiLine(j);
       banshiBox.banshiLines.push(banshiLine);
     }
+    for (var j = 0; j < banshi[i].bangu.length; j++) {
+      bpms.push(banshi[i].bangu[j].bpm);
+    }
+  }
+  var maxBpm = Math.max.apply(null, bpms) + 10;
+  var minBpm = Math.min.apply(null, bpms.filter(bpm => bpm > 0)) - 10;
+  for (var i = 0; i < banshi.length; i++) {
+    var tempoCurveChunk = [];
+    for (var j = 0; j < banshi[i].bangu.length; j++) {
+      var x = map(banshi[i].bangu[j].t, 0, trackDuration, navigationBox.x1+cursorW, navigationBox.x2-cursorW);
+      var y = map(banshi[i].bangu[j].bpm, minBpm, maxBpm, navigationBox.y2, navigationBox.y1);
+      tempoCurveChunk.push([x, y]);
+    }
+    tempoCurve.push(tempoCurveChunk);
+  }
+  var lyrics = recording.lyrics;
+  for (var i = 0; i < lyrics.length; i++) {
+     var lyricsBox = new CreateLyricsBox(lyrics[i], i);
+     lyricsBoxes.push(lyricsBox);
+  }
+}
+
+function CreateCredits (recording) {
+  textSize(15);
+  this.artist = [recording.artist + '    |    ', recording.artistChinese + '    |    '];
+  this.roleType = [recording.roleType + ': ', recording.hangdang + '：'];
+  this.jinghuArtist = [recording.jinghu, recording.jinghuChinese];
+  this.jinghu = ['jinghu: ', '京胡：'];
+  this.txtX = [headingX - (textWidth(this.roleType[0]) + textWidth(this.artist[0]) + textWidth(this.jinghu[0]) +
+   textWidth(this.jinghuArtist[0]) + 20)/2, headingX - (textWidth(this.roleType[1]) + textWidth(this.artist[1]) +
+   textWidth(this.jinghu[1]) + textWidth(this.jinghuArtist[1]) + 20)/2];
+  this.credits;
+
+  this.display = function () {
+    var i;
+    if (langButton.html() =="ES") {
+      i = 1;
+    } else {
+      i = 0;
+    }
+    textAlign(LEFT, TOP);
+    textStyle(NORMAL);
+    textSize(15);
+    var x = this.txtX[i];
+    text(this.roleType[i], x, topExtraSpace+80);
+    x += textWidth(this.roleType[i]);
+    textStyle(BOLD);
+    text(this.artist[i], x, topExtraSpace+80);
+    x += textWidth(this.artist[i]);
+    textStyle(NORMAL);
+    text(this.jinghu[i], x, topExtraSpace+80)
+    x += textWidth(this.jinghu[i]);
+    textStyle(BOLD);
+    text(this.jinghuArtist[i], x, topExtraSpace+80);
   }
 }
 

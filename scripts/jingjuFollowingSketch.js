@@ -442,7 +442,6 @@ function CreateLyricsBox (lyrics, i) {
     if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1+lyricsShift && mouseY < this.ly2+lyricsShift
        && !this.hidden) {
       jump = this.start;
-      print(jump);
       if (playing) {
         banguTrack.jump(jump);
         voiceTrack.jump(jump);
@@ -521,7 +520,6 @@ function CreateBanshiBox (banshi, i) {
       if (mouseX > banshiLine.x1 && mouseX < banshiLine.x2 && mouseY > banshiLine.y1+lyricsShift &&
           mouseY < banshiLine.y2+lyricsShift && !banshiLine.hidden) {
         jump = this.start;
-        print(jump);
         if (playing) {
           banguTrack.jump(jump);
           voiceTrack.jump(jump);
@@ -570,23 +568,38 @@ function CreateBpm () {
 
 function CreateBangu () {
   this.color;
-  this.bg;  this.update = function () {
-    var bg = pitchTrack[currentTime.toFixed(2)].bg;
-    this.bg = bg;
-    if (bg == "") {
-      this.color = color(0, 50);
-    } else if (bg == 1) {
-      print("ban");
-      this.color = color(255, 255, 0);
-    } else if (bg == 2) {
-      this.color = color(255, 160, 122);
+  this.stroke = color(0);
+  this.disabled = false;
+  this.update = function () {
+    if (this.disabled) {
+      this.color = color(0, 0);
+    } else {
+      var bg = pitchTrack[currentTime.toFixed(2)].bg;
+      if (bg == "") {
+        this.color = color(0, 50);
+      } else if (bg == 1) {
+        this.color = color(255, 255, 0);
+      } else if (bg == 2) {
+        this.color = color(255, 160, 122);
+      }
     }
   }
   this.display = function () {
-    stroke(0);
+    stroke(this.stroke);
     strokeWeight(1);
     fill(this.color);
     ellipse(leftExtraSpace+10, lyricsBoxBottom-banguW, banguW, banguW);
+  }
+  this.clicked = function () {
+    if (dist(mouseX, mouseY, leftExtraSpace+10+banguW/2, lyricsBoxBottom-banguW/2) < banguW/2) {
+      if (this.disabled) {
+        this.stroke = color(0);
+        this.disabled = false;
+      } else {
+        this.stroke = color(0, 150);
+        this.disabled = true;
+      }
+    }
   }
 }
 
@@ -679,6 +692,7 @@ function mouseClicked () {
     for (var i = 0; i < banshiBoxes.length; i++) {
       banshiBoxes[i].clicked();
     }
+    bangu.clicked();
   }
 }
 

@@ -32,9 +32,11 @@ var lyricsShift = 0;
 var strokes;
 var cursor;
 var cursorW = 5;
+var banguW = 20;
 
 var credits;
 var bpm;
+var bangu;
 
 var loaded;
 var playing;
@@ -55,8 +57,7 @@ function setup () {
   div.style("width: " + width + "px; position: relative;");
   canvas.parent("sketch-holder");
 
-  ellipseMode(RADIUS);
-  angleMode(DEGREES);
+  ellipseMode(CORNER);
   strokeJoin(ROUND);
 
   selectMenu = createSelect()
@@ -142,6 +143,8 @@ function setup () {
   navigationBox = new CreateNavigationBox();
   lyricsBoxBottom = navigationBox.y1-20;
   cursor = new CreateCursor();
+  bpm = new CreateBpm();
+  bangu = new CreateBangu();
 
   headingLeft = leftExtraSpace + 20 + selectMenu.width;
   headingX = headingLeft + (width - headingLeft) / 2
@@ -154,7 +157,7 @@ function draw () {
     textAlign(CENTER, TOP);
     stroke(0);
     strokeWeight(5);
-    fill("Yellow");
+    fill(255, 255, 0);
     textSize(20);
     textStyle(BOLD);
     text(title, headingX, topExtraSpace+22);
@@ -204,6 +207,8 @@ function draw () {
   if (loaded) {
     bpm.update();
     bpm.display();
+    bangu.update();
+    bangu.display();
   }
 }
 
@@ -215,7 +220,6 @@ function start () {
   currentTime = undefined;
   jump = undefined;
   lyricsShift = 0;
-  bpm = new CreateBpm();
 
   pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json')
 
@@ -368,7 +372,7 @@ function CreateCursor () {
   }
 
   this.display = function () {
-    stroke("yellow");
+    stroke(255, 255, 0);
     strokeWeight(cursorW);
     line(this.x, navigationBox.y1+cursorW/2, this.x, navigationBox.y2-cursorW/2);
   }
@@ -561,6 +565,28 @@ function CreateBpm () {
     noStroke();
     fill(0);
     text(this.bpm, headingLeft, lyricsBoxBottom);
+  }
+}
+
+function CreateBangu () {
+  this.color;
+  this.bg;  this.update = function () {
+    var bg = pitchTrack[currentTime.toFixed(2)].bg;
+    this.bg = bg;
+    if (bg == "") {
+      this.color = color(0, 50);
+    } else if (bg == 1) {
+      print("ban");
+      this.color = color(255, 255, 0);
+    } else if (bg == 2) {
+      this.color = color(255, 160, 122);
+    }
+  }
+  this.display = function () {
+    stroke(0);
+    strokeWeight(1);
+    fill(this.color);
+    ellipse(leftExtraSpace+10, lyricsBoxBottom-banguW, banguW, banguW);
   }
 }
 

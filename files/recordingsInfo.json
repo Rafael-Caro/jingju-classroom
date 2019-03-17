@@ -18,16 +18,16 @@
       {
         "name": "xipi daoban",
         "nameChinese": "【西皮导板】",
-        "start": "0.0",
-        "end": "47.31",
+        "start": 0.0,
+        "end": 47.31,
         "lines": [0, 0],
         "bangu": []
       },
       {
         "name": "xipi yuanban",
         "nameChinese": "【西皮原板】",
-        "start": "48.61",
-        "end": "150.65",
+        "start": 48.61,
+        "end": 150.65,
         "lines": [1, 6],
         "bangu": [
           {
@@ -643,8 +643,8 @@
       {
         "name": "xipi erliu",
         "nameChinese": "【西皮二六】",
-        "start": "150.65",
-        "end": "159.48",
+        "start": 150.65,
+        "end": 159.48,
         "lines": [7, 8],
         "bangu": [
           {
@@ -696,8 +696,8 @@
       {
         "name": "xipi liushui",
         "nameChinese": "【西皮流水】",
-        "start": "159.48",
-        "end": "205.33",
+        "start": 159.48,
+        "end": 205.33,
         "lines": [9, 20],
         "bangu": [
           {
@@ -1029,8 +1029,8 @@
       {
         "name": "xipi sanban",
         "nameChinese": "【西皮散板】",
-        "start": "206.24",
-        "end": "230.2",
+        "start": 206.24,
+        "end": 230.2,
         "lines": [21, 21],
         "bangu": []
       }

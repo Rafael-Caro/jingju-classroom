@@ -228,6 +228,7 @@ function start () {
   banshiBoxes = [];
   lyricsBoxes = [];
   tempoCurve = [];
+  playButton.html("Toca");
 
   pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json')
 

@@ -229,6 +229,7 @@ function start () {
   lyricsBoxes = [];
   tempoCurve = [];
   playButton.html("Toca");
+  playButton.attribute("disabled", "true");
 
   pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json')
 

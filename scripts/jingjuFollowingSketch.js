@@ -213,6 +213,11 @@ function draw () {
 }
 
 function start () {
+  if (loaded) {
+    voiceTrack.stop();
+    accTrack.stop();
+    banguTrack.stop();
+  }
   var mbid = selectMenu.value()
   audioLoader(mbid);
   loaded = false;
@@ -220,6 +225,9 @@ function start () {
   currentTime = undefined;
   jump = undefined;
   lyricsShift = 0;
+  banshiBoxes = [];
+  lyricsBoxes = [];
+  tempoCurve = [];
 
   pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json')
 

@@ -8,7 +8,7 @@ Created on Wed Mar 13 16:19:14 2019
 import numpy as np
 import os
 
-mbid = '14b9c5d7-d2a2-415c-838c-a4e876e8d895'
+mbid = 'ead85d20-ce7d-4ed0-a00d-0ae199b94d12'
 
 with open(os.path.join(mbid, mbid+'-banshi.csv'), 'r', encoding='utf-8') as f:
     banshiData = f.readlines()
@@ -23,8 +23,8 @@ banshi = {}
 
 for b in banshiData:
     bs = b.split(',')[0]
-    start = str(round(float(b.split(',')[1]), 2))
-    end = str(round(float(b.rstrip().split(',')[2]), 2))
+    start = str(round(float(b.split(',')[2]), 2))
+    end = str(round(float(b.rstrip().split(',')[3]), 2))
     banshi[bs] = {'lines':[], 'strokes':[]}
     banshi[bs]['start'] = start
     banshi[bs]['end'] = end
@@ -32,12 +32,12 @@ for b in banshiData:
 i = 0
 for j in range(len(linesData)):
     l = linesData[j]
-    start = float(l.split('\t')[1])
-    end = float(l.split('\t')[2])
+    start = float(l.split('\t')[2])
+    end = float(l.rstrip().split('\t')[3])
     b = banshiData[i]
     bName = b.split(',')[0]
-    bStart = float(b.split(',')[1])
-    bEnd = float(b.rstrip().split(',')[2])
+    bStart = float(b.split(',')[2])
+    bEnd = float(b.rstrip().split(',')[3])
     if start >= bStart and end <= bEnd:
         banshi[bName]['lines'].append(j)
     else:
@@ -58,14 +58,14 @@ for j in range(len(banguData)):
         bangu = 1
     b = banshiData[i]
     bName = b.split(',')[0]
-    bStart = float(b.split(',')[1])
-    bEnd = float(b.rstrip().split(',')[2])
+    bStart = float(b.split(',')[2])
+    bEnd = float(b.rstrip().split(',')[3])
     while time > bEnd:
         i += 1
         b = banshiData[i]
         bName = b.split(',')[0]
-        bStart = float(b.split(',')[1])
-        bEnd = float(b.rstrip().split(',')[2])
+        bStart = float(b.split(',')[2])
+        bEnd = float(b.rstrip().split(',')[3])
     banshi[bName]['strokes'].append([round(time, 2)])
     banshi[bName]['strokes'][-1].append(bpm)
     banshi[bName]['strokes'][-1].append(bangu)
@@ -75,63 +75,67 @@ for b in banshi.keys():
         print(banshi[b]['start'], ':', banshi[b]['strokes'][0][0], '\t',
               banshi[b]['strokes'][-1][0], ':', banshi[b]['end'])
         
-json = ''
+banshiJSON = '"banshi": [\n'
 
 for b in banshiData:
-    toAdd = '{\n  "name": "",\n'
+    toAdd = '  {\n'
+    toAdd += '    "name": "{}",\n'.format(b.split(',')[1])
     bName = b.split(',')[0]
     bs = banshi[bName]
-    toAdd += '  "nameChinese": "{}",\n'.format(bName)
-    toAdd += '  "start": "{}",\n  "end": "{}",\n'.format(bs['start'],
+    toAdd += '    "nameChinese": "{}",\n'.format(bName)
+    toAdd += '    "start": "{}",\n    "end": "{}",\n'.format(bs['start'],
                           bs['end'])
-    toAdd += '  "lines": [{}, {}],\n'.format(bs['lines'][0], bs['lines'][-1])
-    toAdd += '  "bangu": ['
+    toAdd += '    "lines": [{}, {}],\n'.format(bs['lines'][0], bs['lines'][-1])
+    toAdd += '    "bangu": ['
     for bg in bs['strokes']:
-        toAdd += '\n    {\n      '
-        toAdd += '"t": {},\n      "bpm": {}\n'.format(bg[0], bg[1])
-        toAdd += '    },'
+        toAdd += '\n      {\n        '
+        toAdd += '"t": {},\n        "bpm": {}\n'.format(bg[0], bg[1])
+        toAdd += '      },'
 #    print(bName, toAdd[-2:])
     if toAdd[-2:] == '},':
-        toAdd = toAdd.rstrip(',') + '\n  ]\n},\n'
+        toAdd = toAdd.rstrip(',') + '\n    ]\n  },\n'
     else:
-        toAdd += ']\n},\n'
-    json += toAdd
+        toAdd += ']\n  },\n'
+    banshiJSON += toAdd
 
-#print(json.rstrip(',\n'))
+banshiJSON = banshiJSON.rstrip(',\n') + '\n],\n'
 
-with open(os.path.join(mbid, mbid+'-banshi.json'), 'w', encoding='utf-8') as f:
-    f.write(json.rstrip(',\n'))
+#with open(os.path.join(mbid, mbid+'-banshi.json'), 'w', encoding='utf-8') as f:
+#    f.write(banshiJSON.rstrip(',\n'))
 
-#
-#finalTxt = ""
+#linesJSON = ""
 #
 #for l in data:
-#    finalTxt += '{\n'
-#    finalTxt += '  "t": ' + l.split(',')[0] + ',\n'
-#    finalTxt += '  "bpm": ' + l.split(',')[1] + ',\n'
+#    linesJSON += '{\n'
+#    linesJSON += '  "t": ' + l.split(',')[0] + ',\n'
+#    linesJSON += '  "bpm": ' + l.split(',')[1] + ',\n'
 #    bangu = str(float(l.rstrip().split(',')[2]))
 #    print(bangu)
 #    if bangu[-1] == 0 or bangu[-1] == 1:
-#        finalTxt += '  "bg": 0\n'
+#        linesJSON += '  "bg": 0\n'
 #    else:
-#        finalTxt += '  "bg": 1\n'
-#    finalTxt += '},\n'
+#        linesJSON += '  "bg": 1\n'
+#    linesJSON += '},\n'
 #
 #with open(os.path.join(mbid, mbid+'-strokes.txt'), 'w') as f:
-#    f.write(finalTxt.rstrip(',\n'))
-    
+#    f.write(linesJSON.rstrip(',\n'))
+#    
 #with open(os.path.join(mbid, mbid+'-lines.tsv'), 'r', encoding='utf-8') as f:
 #    lines = f.readlines()
-#
-#finalTxt = ""
-#
-#for l in lines:
-#    finalTxt += '{\n'
-#    finalTxt += '  "lyrics": "' + l.rstrip().split('\t')[3] + '",\n'
-#    finalTxt += '  "lyricsChinese": "' + l.split('\t')[0] + '",\n'
-#    finalTxt += '  "start": ' + str(round(float(l.split('\t')[1]), 2)) + ',\n'
-#    finalTxt += '  "end": ' + str(round(float(l.split('\t')[2]), 2)) + '\n'
-#    finalTxt += '},\n'
-#
-#with open(os.path.join(mbid, mbid+'-lines.txt'), 'w', encoding='utf-8') as f:
-#    f.write(finalTxt.rstrip(',\n'))
+
+linesJSON = '"lyrics": [\n'
+
+for l in linesData:
+    linesJSON += '  {\n'
+    linesJSON += '    "lyrics": "' + l.split('\t')[1] + '",\n'
+    linesJSON += '    "lyricsChinese": "' + l.split('\t')[0] + '",\n'
+    linesJSON += '    "start": ' + str(round(float(l.split('\t')[2]), 2)) + ',\n'
+    linesJSON += '    "end": ' + str(round(float(l.rstrip().split('\t')[3]), 2)) + '\n'
+    linesJSON += '  },\n'
+
+linesJSON = linesJSON.rstrip(',\n') + '\n]'
+
+finalJSON = banshiJSON + linesJSON
+
+with open(os.path.join(mbid, mbid+'-banshiLines.json'), 'w', encoding='utf-8') as f:
+    f.write(finalJSON.rstrip(',\n'))

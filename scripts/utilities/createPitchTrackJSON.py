@@ -8,9 +8,9 @@ Created on Sat Mar 16 16:10:46 2019
 import numpy as np
 import os
 
-mbid = '14b9c5d7-d2a2-415c-838c-a4e876e8d895'
+mbid = 'ead85d20-ce7d-4ed0-a00d-0ae199b94d12'
 
-trackDuration = 23020
+trackDuration = 22000
 
 with open(os.path.join(mbid, mbid+'-bangu.csv'), 'r') as f:
     banguData = f.readlines()
@@ -23,11 +23,11 @@ pitchTrack = {}
 for i in range(trackDuration):
     pitchTrack[i] = {'bpm': '""', 'bg': ''}
     
-scattered = [0, 4]
+scattered = []
 
 for i in range(len(banshiData)):
-    start = int(round(float(banshiData[i].split(',')[1]), 2) * 100)
-    end = int(round(float(banshiData[i].rstrip().split(',')[2]), 2) * 100)
+    start = int(round(float(banshiData[i].split(',')[2]), 2) * 100)
+    end = int(round(float(banshiData[i].rstrip().split(',')[3]), 2) * 100)
     for j in range(start, end+1):
         if j < trackDuration:
             if i in scattered:

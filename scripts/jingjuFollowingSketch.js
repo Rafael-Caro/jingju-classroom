@@ -10,8 +10,16 @@ var voiceTrack;
 var accTrack;
 var banguTrack;
 
+var aria;
+var ariaChinese;
+var play;
+var playChinese;
+var character;
+var characterChinese;
+
 var selectMenu;
 var langButton;
+var visButton;
 var playButton;
 var voiceToggle;
 var voiceSlider;
@@ -23,17 +31,26 @@ var navigationBox;
 var navigationBoxH = 100;
 var tempoCurve = [];
 var banshiBoxes = [];
+var scaleCents;
+var scaleDegrees;
+var scaleLines = [];
 var banshiBoxW = 150;
 var banshiBoxH = 30;
 var lyricsBoxes = [];
 var lyricsBoxTop = topExtraSpace+110;
 var lyricsBoxBottom;
 var lyricsShift = 0;
+var cents = [];
+var minCent;
+var maxCent;
+var louds = [];
 var strokes;
 var cursor;
 var cursorW = 5;
 var banguW = 20;
 
+var title;
+var subtitle;
 var credits;
 var bpm;
 var bangu;
@@ -43,6 +60,7 @@ var playing;
 var trackDuration;
 var currentTime;
 var jump;
+var visualization = 'lines';
 
 var headingLeft;
 var headingX;
@@ -93,6 +111,13 @@ function setup () {
     .size(30, 30)
     .position(width-30-10, 10)
     .mousePressed(langChange)
+    .parent("sketch-holder")
+    .attribute("disabled", "true");
+
+  visButton = createButton("Melodía")
+    .size(100, 30)
+    .position(width-120, lyricsBoxTop-40)
+    .mousePressed(visChange)
     .parent("sketch-holder")
     .attribute("disabled", "true");
 
@@ -175,6 +200,44 @@ function draw () {
 
   navigationBox.displayBack();
 
+  if (visualization == 'melody') {
+    for (var i = 0; i < scaleLines.length; i++) {
+      stroke(200);
+      var degree = scaleCents[i];
+      if (degree == -1200 || degree == 0 || degree == 1200) {
+        strokeWeight(3);
+      } else {
+        strokeWeight(1);
+      }
+      line(headingLeft+30, scaleLines[i], width-40, scaleLines[i]);
+    }
+    var start = int(currentTime * 100);
+    for (var i = 0; i < width-headingLeft-30; i++) {
+      var x = headingLeft+10+i;
+      var y = cents[start+i];
+      var z = louds[start+i]/2;
+      stroke(205, 92, 92);
+      strokeWeight(1);
+      line(x, y-z, x, y+z);
+    }
+    stroke(255, 255, 0);
+    strokeWeight(cursorW);
+    var x = headingLeft+10 + (width-headingLeft-30)/2;
+    line(x, lyricsBoxTop+cursorW/2, x, lyricsBoxBottom-cursorW/2);
+    noStroke();
+    fill(255, 200);
+    rect(headingLeft+11, lyricsBoxTop+1, 19, lyricsBoxBottom-lyricsBoxTop-1);
+    rect(width-40, lyricsBoxTop+1, 20, lyricsBoxBottom-lyricsBoxTop-1);
+    for (var i = 0; i < scaleDegrees.length; i++) {
+      textAlign(CENTER, CENTER);
+      textSize(12);
+      noStroke();
+      fill(0);
+      text(scaleDegrees[i], headingLeft+20, scaleLines[i]);
+      text(scaleDegrees[i], width-30, scaleLines[i]);
+    }
+  }
+
   for (var i = 0; i < lyricsBoxes.length; i++) {
     lyricsBoxes[i].update();
     lyricsBoxes[i].display();
@@ -224,14 +287,18 @@ function start () {
   playing = false;
   currentTime = undefined;
   jump = undefined;
+  visualization = 'lines';
   lyricsShift = 0;
   banshiBoxes = [];
   lyricsBoxes = [];
   tempoCurve = [];
+  cents = [];
+  louds = [];
   playButton.html("Toca");
   playButton.attribute("disabled", "true");
+  visButton.attribute("disabled", "true");
 
-  pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json')
+  pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json', pitchAndLoudness);
 
   langButton.removeAttribute("disabled");
   langButton.html("中");
@@ -253,6 +320,21 @@ function start () {
   title = '"' + aria + '"';
   subtitle = play + ' (' + character + ')';
   trackDuration = recording.duration;
+  var roleType = recording.roleType;
+  if (roleType == 'laosheng') {
+    scaleCents = [-1200, -1000, -800, -500, -300, 0, 200, 400, 700, 900, 1200];
+    scaleDegrees = [1, 2, 3, 5, 6, 1, 2, 3, 5, 6, 1];
+  } else if (roleType == 'dan') {
+    scaleCents = [0, 200, 400, 700, 900, 1200, 1400, 1600, 1900];
+    scaleDegrees = [1, 2, 3, 5, 6, 1, 2, 3, 5];
+  } else {
+    print("Unknown role type");
+  }
+  minCent = scaleCents[0]-50;
+  maxCent = scaleCents[scaleCents.length-1]+50;
+  for (var i = 0; i < scaleCents.length; i++) {
+    scaleLines.push(map(scaleCents[i], minCent, maxCent, lyricsBoxBottom, lyricsBoxTop));
+  }
   var bpms = [];
   var banshi = recording.banshi;
   for (var i = 0; i < banshi.length; i++) {
@@ -388,6 +470,16 @@ function CreateCursor () {
   }
 }
 
+function visChange () {
+  if (visButton.html() == 'Melodía') {
+    visButton.html('Versos');
+    visualization = 'melody';
+  } else if (visButton.html() == 'Versos') {
+    visualization = 'lines';
+    visButton.html('Melodía');
+  }
+}
+
 function CreateLyricsBox (lyrics, i) {
   this.start = lyrics.start
   this.x1 = map(this.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
@@ -437,12 +529,16 @@ function CreateLyricsBox (lyrics, i) {
       this.hidden = false;
       fill(this.txtBack);
       noStroke();
-      rect(this.lx1, this.ly1+lyricsShift, this.lx2-this.lx1, 20);
+      if (visualization == 'lines') {
+        rect(this.lx1, this.ly1+lyricsShift, this.lx2-this.lx1, 20);
+      }
       textAlign(LEFT, BOTTOM);
       textStyle(NORMAL);
       textSize(15);
       fill(0);
-      text(this.lyrics2display, this.lx1+10, this.ly1+lyricsShift, this.lx2-this.lx1, 20);
+      if (visualization == 'lines') {
+        text(this.lyrics2display, this.lx1+10, this.ly1+lyricsShift, this.lx2-this.lx1, 20);
+      }
     } else {
       this.hidden = true;
     }
@@ -450,7 +546,7 @@ function CreateLyricsBox (lyrics, i) {
 
   this.clicked = function () {
     if (mouseX > this.lx1 && mouseX < this.lx2 && mouseY > this.ly1+lyricsShift && mouseY < this.ly2+lyricsShift
-       && !this.hidden) {
+       && !this.hidden && visualization == 'lines') {
       jump = this.start;
       if (playing) {
         banguTrack.jump(jump);
@@ -465,7 +561,7 @@ function CreateLyricsBox (lyrics, i) {
 }
 
 function CreateBanshiBox (banshi, i) {
-  this.start = banshi.start
+  this.start = parseFloat(banshi.start);
   this.x1 = map(this.start, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
   this.x2 = map(banshi.end, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
   this.y1 = navigationBox.y1;
@@ -509,13 +605,17 @@ function CreateBanshiBox (banshi, i) {
         banshiLine.hidden = false;
         noStroke();
         fill(this.txtBack);
-        rect(banshiLine.x1, banshiLine.y1+lyricsShift, banshiBoxW, 20)
+        if (visualization == 'lines') {
+          rect(banshiLine.x1, banshiLine.y1+lyricsShift, banshiBoxW, 20);
+        }
         if (!banshiDisplayed) {
           textAlign(LEFT, BOTTOM);
           textStyle(BOLD);
           textSize(15);
           fill(0);
-          text(this.banshi2display, banshiLine.x1+10, banshiLine.y1+lyricsShift, banshiBoxW, 20);
+          if (visualization == 'lines') {
+            text(this.banshi2display, banshiLine.x1+10, banshiLine.y1+lyricsShift, banshiBoxW, 20);
+          }
           banshiDisplayed = true;
         }
       } else {
@@ -528,7 +628,7 @@ function CreateBanshiBox (banshi, i) {
     for (var i = 0; i < this.banshiLines.length; i++) {
       var banshiLine = this.banshiLines[i];
       if (mouseX > banshiLine.x1 && mouseX < banshiLine.x2 && mouseY > banshiLine.y1+lyricsShift &&
-          mouseY < banshiLine.y2+lyricsShift && !banshiLine.hidden) {
+          mouseY < banshiLine.y2+lyricsShift && !banshiLine.hidden && visualization == 'lines') {
         jump = this.start;
         if (playing) {
           banguTrack.jump(jump);
@@ -555,7 +655,13 @@ function CreateBpm () {
   this.bpm;
   this.style;
   this.update = function () {
-    var bpm = pitchTrack[currentTime.toFixed(2)].bpm;
+    var i;
+    if (currentTime == undefined) {
+      i = 0;
+    } else {
+      i = currentTime.toFixed(2)
+    }
+    var bpm = pitchTrack[i].bpm;
     if (bpm=='s') {
       this.style = ITALIC;
       this.bpm = 'disperso';
@@ -613,11 +719,42 @@ function CreateBangu () {
   }
 }
 
+function pitchAndLoudness () {
+  var maxLoud = 0;
+  for (var i = 0; i < (width-headingLeft-30)/2; i++) {
+    cents.push(undefined);
+    louds.push(undefined);
+  }
+  for (var i = 0; i < trackDuration*100; i++) {
+    var t = i/100;
+    var c = map(pitchTrack[t.toFixed(2)]['c'], minCent, maxCent, lyricsBoxBottom, lyricsBoxTop);
+    if (c > lyricsBoxTop && c < lyricsBoxBottom) {
+      cents.push(c);
+    } else {
+      cents.push(undefined);
+    }
+    var l = pitchTrack[t.toFixed(2)]['l'];
+    if (l > maxLoud) {
+      maxLoud = l;
+    }
+  }
+  for (var i = 0; i < trackDuration*100; i++) {
+    var t = i/100;
+    var l = pitchTrack[t.toFixed(2)]['l'];
+    louds.push(map(l, 0, maxLoud, 0, 30));
+  }
+  for (var i = 0; i < (width-headingLeft-30)/2; i++) {
+    cents.push(undefined);
+    louds.push(undefined);
+  }
+}
+
 function audioLoader (mbid) {
   banguTrack = loadSound("tracks/" + mbid + "-bangu.mp3");
   voiceTrack = loadSound("tracks/" + mbid + "-voice.mp3");
   accTrack = loadSound("tracks/" + mbid + "-acc.mp3", function () {
     playButton.removeAttribute("disabled");
+    visButton.removeAttribute("disabled");
     loaded=true;
     currentTime = 0;
     voiceToggle.removeAttribute("disabled");

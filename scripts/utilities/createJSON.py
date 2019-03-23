@@ -8,7 +8,7 @@ Created on Wed Mar 13 16:19:14 2019
 import numpy as np
 import os
 
-mbid = 'ead85d20-ce7d-4ed0-a00d-0ae199b94d12'
+mbid = 'b1584010-c1f6-4e54-9c5e-eb6f76c45804'
 
 with open(os.path.join(mbid, mbid+'-banshi.csv'), 'r', encoding='utf-8') as f:
     banshiData = f.readlines()

@@ -294,8 +294,10 @@ function start () {
   tempoCurve = [];
   cents = [];
   louds = [];
+  scaleLines = [];
   playButton.html("Toca");
   playButton.attribute("disabled", "true");
+  visButton.html("Melodía");
   visButton.attribute("disabled", "true");
 
   pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json', pitchAndLoudness);

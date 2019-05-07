@@ -11,20 +11,34 @@ body {
   font-family: Verdana, Geneva, sans-sans-serif;
   color: #353430;
   background-image: linear-gradient(white, #C8A2E5);
-  /* background-color() */
+  /* background-color: black; */
   width: 100%;
 }
 
-nav, main, footer {
+nav, main, section, footer {
   background-color: white;
   width: 1000px;
   margin: 0 auto;
-  padding: 10px 30px;
+  padding: 20px 30px;
 }
 
 nav {
-  text-align: right;
+  /* text-align: right; */
+  height: 1em;
   margin-bottom: 2px;
+}
+
+#language {
+  font-size: 0.8em;
+}
+
+#flag {
+  height: 0.8em;
+}
+
+#home {
+  float: right;
+  font-size: 1em;
 }
 
 main {
@@ -94,6 +108,20 @@ footer {
 
 img {
   display: inline-block;
+}
+
+section {
+  background-color: white;
+  width: 1000px;
+  margin: 2px auto;
+  padding: 10px 30px;
+  height: 100%;
+  font-size: 0.8em;
+}
+
+section p {
+  padding-bottom: 0px;
+  text-align: center;
 }
 
 #musicalbridges {

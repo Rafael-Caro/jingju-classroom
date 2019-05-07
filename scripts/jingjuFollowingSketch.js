@@ -305,11 +305,17 @@ function start () {
   langButton.removeAttribute("disabled");
   langButton.html("中");
   voiceToggle.attribute("disabled", "true");
+  voiceToggle.checked("true");
   voiceSlider.attribute("disabled", "true");
+  voiceSlider.value(50);
   accToggle.attribute("disabled", "true");
+  accToggle.checked("true");
   accSlider.attribute("disabled", "true");
+  accSlider.value(50);
   banguToggle.attribute("disabled", "true");
+  banguToggle.checked("true");
   banguSlider.attribute("disabled", "true");
+  banguSlider.value(50);
 
   var recording = recordingsInfo[mbid];
   credits = new CreateCredits(recording);

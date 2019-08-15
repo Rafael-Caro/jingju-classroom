@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Jingju tools</title>
+    <link href="../style.css" type="text/css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Laila:300,400,500,600,700&amp;subset=devanagari,latin-ext" rel="stylesheet">
+    <script src="../scripts/p5.min.js"></script>
+    <script src="../scripts/p5.dom.min.js"></script>
+    <script src="../scripts/p5.sound.min.js"></script>
+    <script src="../scripts/jingjuFollowingSketch.js"></script>
+  </head>
+  <body>
+    <nav>
+      <a id="language" href="../index.html">
+        <img id="flag" src="../images/english.png" alt="british flag">
+        English
+      </a>
+    </nav>
+    <main>
+      <h2>Visualizador de arias de <i>jingju</i></h2>
+      <p>Selecciona un aria, y comprueba en el navegador inferior cómo avanza el tempo en relación con el <i>shengqiang</i> y <i>banshi</i> de cada sección, así como con el contenido de los versos cantados. Pulsa el botón "Melodía" y observa los detalles de la línea melódica de la voz en cuanto a altura y volumen. Una pista generada automáticamente con sonidos de la claqueta ban y el tambor danpigu, así como un indicador luminoso, te ayudarán a seguir el tempo y el metro de cada sección. Regula el volumen de la voz, del acompañamiento instrumental, y de la pista de percusión según tus necesidades. Y si quieres, puedes ver en cada momento el original chino de la letra.</p>
+      <p>Para una descripción más detallada sobre cómo usar este visualizador, mira las <a href="#instructions">instrucciones</a> debajo.</p>
+      <div id="sketch-holder">
+       <a id="sa-info-link" target="_blank" a:link="text-decoration: none"></a>
+     </div>
+     <h3 id="instructions">Instrucciones</h3>
+     <p id="nota"><b>Nota:</b> Esta herramienta está aún en desarrollo y puede experimentar algunos problemas. Para un rendimiento óptimo, se recomienda usarla en un ordenador (el uso en tablets y teléfonos móviles puede ser demasiado lento y ocasionar problemas de sincronización) y con el navegador <a href="https://www.google.com/chrome/">Chrome</a>.</p>
+     <ol>
+       <li>Para comenzar a usar el visualizador de arias de <i>jingju</i>, elige un aria en el menú desplegable en la esquina superior izquierda. En cada opción, la traducción al español del título de cada aria va seguida del personaje tipo que la interpreta y de los pares de <i>shengqiang</i> y <i>banshi</i> que forman cada aria, así como la duración total de la grabación entre paréntesis. Al seleccionar un aria, la grabación puede tardar algunos segundos en cargarse.</li>
+       <li>Una vez elegida un aria, el título de la misma aparece en la parte superior del visualizador con letras amarillas. A continuación, se muestran el título de la obra de la que procede el aria, con el nombre del personaje que la canta entre paréntesis, y en la siguiente línea los nombres del actor o actriz que la interpreta, y del o la intérprete de jinghu que le acompaña. En el cuadro blanco central del visualizador aparece la traducción de la letra del aria al castellano en dos columnas. La columna izquierda muestra los pares de <i>shengqiang</i> y <i>banshi</i> contenidos en el aria, y la columna derecha la traducción de cada uno de los versos del aria. Cada par de <i>shengqiang</i> y <i>banshi</i> se interpreta en el verso que se muestra en paralelo en la columna derecha, y en todos los versos que le siguen hasta que aparezca una nueva indicación de <i>shengqiang</i> y <i>banshi</i>. Por último, en la parte inferior del visualizador aparece un navegador, cuyo ancho corresponde con la duración del aria. En la parte superior del navegador unos recuadros horizontales indican la sección del aria en la que se interpreta cada cada par de <i>shengqiang</i> y <i>banshi</i>. Los cuadros de un gris más oscuro que ocupan todo el alto del navegador corresponden a los versos del aria. La línea blanca superpuesta es una curva de tempo, e indica la evolución del tempo en aquellas secciones del aria donde se interpreta un <i>banshi</i> métrico.</li>
+       <li>Una vez que la grabación del aria seleccionada se haya cargado por completo (lo cual es apreciable al cambiar el color de las letras de los botones de gris a negro), se puede escuchar el aria pulsando el botón "Toca". Para pausar la reproducción de la grabación, se puede pulsar el mismo botón, que ahora muestra la etiqueta "Pausa". Haciendo click en cualquier punto del navegador, la reproducción saltará a ese punto de la grabación. Pulsando sobre cualquier par de <i>shengqiang</i> y <i>banshi</i> o sobre cualquier verso en el cuadro central, la reproducción saltará al principio de la interpretación del correspondiente <i>banshi</i> o verso.</li>
+       <li>A medida que vaya avanzando la reproducción, un cursor vertical amarillo irá avanzando sobre el navegador, indicando la posición del instante interpretado. Durante la interpretación de un determinado <i>banshi</i> y un determinado verso, estos aparacerán resaltados en amarillo tanto en el cuadro central como en el navegador. Igualmente, durante la interpretación de <i>banshi</i> métricos, un marcador indica el valor de tempo en ese instante en bpm.</li>
+       <li>A la derecha del cuadro central aparecen tres opciones, "voz", "jinghu" y "bangu", cada una de ellas con un casilla de selección a la izquierda y una barra de control abajo. Las dos primeras opciones se refieren respectivamente a la pista vocal y a la del acompañamiento instrumental del jinghu. La tercera, "bangu", se refiere a una pista generada automáticamente a partir de anotaciones manuales de la pulsación en las secciones métricas del aria. Esta pista produce un sonido de la claqueta ban para cada pulso fuerte y un sonido del tambor danpigu para cada pulso débil. En cada opción, el volumen de la pista se puede regular con su respectiva barra de control, o se puede desactivar totalmente con la casilla de selección.</li>
+       <li>Los pulsos fuertes y débiles se indican igualmente con un círculo sobre el navegador en su extremo izquierdo. Este círculo se ilumina en amarillo cada tiempo fuerte y en naranja cada tiempo débil. Se puede desactivar y volver a activar pulsando sobre el mismo.</li>
+       <li>Al pulsar el botón "Melodía", sobre la esquina superior derecha del cuadro central, este dejará de mostrar la letra y en su lugar mostrará una representación de la melodía obtenida automáticamente. En el centro del cuadro aparece una barra vertical amarilla fija, que coincide con la posición del cursor del navegador. Las líneas horizontales indican la posición de cada grado de la escala (de manera que el número 1 equivaldría a un do móvil, el 2 a un re, el 3 a un mi, etc.). La línea melódica de la voz va pasando por el cursor a medida que se vaya interpretando. Su posición vertical indica la altura cantada, cuyo valor concreto se puede apreciar según las líneas horizontales de los grados de la escala. El grosor de la línea indica el volumen de la interpretación. Para volver a ver la letra del aria se puede pulsar sobre el botón "Versos", en la misma posición que el anterior, sobre la esquina superior derecha del cuadro central.</li>
+       <li>En todo momento, se puede pulsar el botón "中" para mostrar la información del aria y los intérpretes, así como los pares de <i>shengqiang</i> y <i>banshi</i> en el chino original. Pulsando sobre el mismo botón, que ahora mostrará la etiqueta "ES", se vuelve a las traducciones al español.</li>
+     </ol>
+    </main>
+    <section id="credits">
+     <p>La traducción del chino al español ha sido realizada por Rafael Caro Repetto.</p>
+     <p>Todo el contenido de esta página está bajo una <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Licencia Creative Commons Atribución-NoComercial-SinDerivadas 4.0 Internacional</a>.<br /><a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Licencia Creative Commons" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a></p>
+   </section>
+    <footer>
+      <span> <a href="https://www.upf.edu/web/musicalbridges"><img id="musicalbridges" src="images/musicalbridges.png" alt="Logo de Musical Bridges"></a></span>
+    </footer>
+  </body>
+</html>

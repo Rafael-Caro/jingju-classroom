@@ -1,17 +1,31 @@
 {
   "14b9c5d7-d2a2-415c-838c-a4e876e8d895": {
-    "aria": "En la antigüedad había tres grandes sabios",
-    "ariaChinese": "“昔日有个三大贤”",
-    "play": "La fortaleza de Zhulian",
-    "playChinese": "《珠帘寨》",
-    "character": "Li Keyong",
-    "characterChinese": "李克用",
-    "artist": "Tian Hao",
-    "artistChinese": "田昊",
-    "hangdang": "老生",
-    "roleType": "laosheng",
-    "jinghu": "Zhang Lantian",
-    "jinghuChinese": "张蓝天",
+    "aria": {
+      "zh": "“昔日有个三大贤”",
+      "es": "En la antigüedad había tres grandes sabios",
+      "en": "In ancient times there were three great sages"
+    },
+    "play": {
+      "zh": "《珠帘寨》",
+      "es": "La fortaleza de Zhulian",
+      "en": "The Zhulian stockade"
+    },
+    "character": {
+      "zh": "李克用",
+      "wy": "Li Keyong"
+    },
+    "artist": {
+      "zh": "田昊",
+      "wy": "Tian Hao"
+    },
+    "hangdang": {
+      "zh": "老生",
+      "wy": "laosheng"
+    },
+    "jinghu": {
+      "zh": "张蓝天",
+      "wy": "Zhang Lantian"
+    },
     "info": "https://musicbrainz.org/recording/14b9c5d7-d2a2-415c-838c-a4e876e8d895",
     "duration": 230.14,
     "banshi": [
@@ -1037,152 +1051,232 @@
     ],
     "lyrics": [
       {
-        "lyrics": "En la antigüedad había tres grandes sabios,",
-        "lyricsChinese": "昔日里有个三大贤，",
+        "lyrics": {
+          "zh": "昔日里有个三大贤，",
+          "es": "En la antigüedad había tres grandes sabios,",
+          "en": "In ancient times there were three great sages,"
+        },
         "start": 20.21,
         "end": 45.87
       },
       {
-        "lyrics": "Liu Bei, Guan Yu y Zhang Fei, que se juraron hermandad en el Jardín de los Perales.",
-        "lyricsChinese": "刘关张结义在桃园。",
+        "lyrics": {
+          "zh": "刘关张结义在桃园。",
+          "es": "Liu Bei, Guan Yu y Zhang Fei, que se juraron hermandad en el Jardín de los Melocotoneros.",
+          "en": "Liu Bei, Guan Yu and Zhang Fei, who swore brotherhood in the Peach Garden."
+        },
         "start": 59.12,
         "end": 68.2
       },
       {
-        "lyrics": "Los hermanos se separaron en Xuzhou,",
-        "lyricsChinese": "弟兄们徐州曾失散，",
+        "lyrics": {
+          "zh": "弟兄们徐州曾失散，",
+          "es": "Los hermanos se separaron en Xuzhou,",
+          "en": "The brothers separated in Xuzhou,"
+        },
         "start": 76.69,
         "end": 85.22
       },
       {
-        "lyrics": "pero se reencontraron en Gucheng.",
-        "lyricsChinese": "古城相逢又团圆。",
+        "lyrics": {
+          "zh": "古城相逢又团圆。",
+          "es": "pero se reencontraron en Gucheng.",
+          "en": "but they reunited in Gucheng."
+        },
         "start": 94.14,
         "end": 103.87
       },
       {
-        "lyrics": "Guan Yu, desde su caballo, llamó a su hermano Zhang Fei,",
-        "lyricsChinese": "关二爷马上呼三弟，",
+        "lyrics": {
+          "zh": "关二爷马上呼三弟，",
+          "es": "Guan Yu, desde su caballo, llamó a su hermano Zhang Fei,",
+          "en": "Guan Yu, on his horse, called his brother Zhang Fei,"
+        },
         "start": 111.52,
         "end": 119.08
       },
       {
-        "lyrics": "pero él, desde la muralla de la ciudad, hervía de ira.",
-        "lyricsChinese": "张翼德在城楼怒发冲冠。",
+        "lyrics": {
+          "zh": "张翼德在城楼怒发冲冠。",
+          "es": "pero él, desde la muralla de la ciudad, hervía de ira.",
+          "en": "but he, from the city walls, seethed in anger."
+        },
         "start": 128.72,
         "end": 137.88
       },
       {
-        "lyrics": "Entonces llega a sus oídos…",
-        "lyricsChinese": "耳边厢又听——",
+        "lyrics": {
+          "zh": "耳边厢又听——",
+          "es": "Entonces llega a sus oídos…",
+          "en": "Then to his ears came…"
+        },
         "start": 145.97,
         "end": 150.65
       },
       {
-        "lyrics": "      …el clamor de un gentío:",
-        "lyricsChinese": "   ——人呐喊，",
+        "lyrics": {
+          "zh": "   ——人呐喊，",
+          "es": "      …el clamor de un gentío:",
+          "en": "      …the rallying cry of a multitude:"
+        },
         "start": 150.65,
         "end": 153.99
       },
       {
-        "lyrics": "el ejército de Cai Yang se acercaba a la ciudad.",
-        "lyricsChinese": "老蔡阳的人马来到了古城边。",
+        "lyrics": {
+          "zh": "老蔡阳的人马来到了古城边。",
+          "es": "el ejército de Cai Yang se acercaba a la ciudad.",
+          "en": "Cai Yang's army was approaching the city."
+        },
         "start": 154.38,
         "end": 159.04
       },
       {
-        "lyrics": "\"Solo tienes tres toques de tambor\", dijo Zhang Fei.",
-        "lyricsChinese": "城楼上助你三通鼓，",
+        "lyrics": {
+          "zh": "城楼上助你三通鼓，",
+          "es": "\"Solo tienes tres toques de tambor\", dijo Zhang Fei.",
+          "en": "\"Three drumrolls will serve you,\" said from the city walls,"
+        },
         "start": 159.48,
         "end": 163.31
       },
       {
-        "lyrics": "mientras las insignias del enemigo se amontonaban ominosas.",
-        "lyricsChinese": "十面旌旗壮壮威严。",
+        "lyrics": {
+          "zh": "十面旌旗壮壮威严。",
+          "es": "mientras las insignias del enemigo se amontonaban ominosas.",
+          "en": "and they were sorrounded by the strength and might of the enemy's banners."
+        },
         "start": 163.62,
         "end": 167.04
       },
       {
-        "lyrics": "\"Hua la la\", primer toque de tambor,",
-        "lyricsChinese": "哗喇喇打罢了头通鼓，",
+        "lyrics": {
+          "zh": "哗喇喇打罢了头通鼓，",
+          "es": "\"Hua la la\", primer toque de tambor,",
+          "en": "\"Hua la la,\" sounded the first drumroll,"
+        },
         "start": 167.53,
         "end": 171.38
       },
       {
-        "lyrics": "y Guan Yu ya cabalga blandiendo su arma.",
-        "lyricsChinese": "关二爷提刀跨雕鞍。",
+        "lyrics": {
+          "zh": "关二爷提刀跨雕鞍。",
+          "es": "y Guan Yu ya cabalga blandiendo su arma.",
+          "en": "and Guan Yu unsheathed his sword and mounted his horse."
+        },
         "start": 171.77,
         "end": 174.35
       },
       {
-        "lyrics": "\"Hua la la\", segundo toque de tambor,",
-        "lyricsChinese": "哗喇喇打罢了二通鼓，",
+        "lyrics": {
+          "zh": "哗喇喇打罢了二通鼓，",
+          "es": "\"Hua la la\", segundo toque de tambor,",
+          "en": "\"Hua la la,\" sounded the second drumroll,"
+        },
         "start": 174.35,
         "end": 177.45
       },
       {
-        "lyrics": "y hombre y caballo ya rezuman euforia.",
-        "lyricsChinese": "人有精神马又欢。",
+        "lyrics": {
+          "zh": "人有精神马又欢。",
+          "es": "y hombre y caballo ya rezuman euforia.",
+          "en": "and the man was euphoric and the horse exultant."
+        },
         "start": 177.93,
         "end": 180.99
       },
       {
-        "lyrics": "\"Hua la la\", tercer toque de tambor,",
-        "lyricsChinese": "哗喇喇打罢了三通鼓，",
+        "lyrics": {
+          "zh": "哗喇喇打罢了三通鼓，",
+          "es": "\"Hua la la\", tercer toque de tambor,",
+          "en": "\"Hua la la,\" sounded the third drumroll,"
+        },
         "start": 181.3,
         "end": 184.05
       },
       {
-        "lyrics": "y la cabeza de Cai Yang ya rueda bajo su caballo.",
-        "lyricsChinese": "蔡阳的人头落在马前。",
+        "lyrics": {
+          "zh": "蔡阳的人头落在马前。",
+          "es": "y la cabeza de Cai Yang ya rueda bajo su caballo.",
+          "en": "and Cai Yang's head dropped in front of the horse."
+        },
         "start": 184.45,
         "end": 187.35
       },
       {
-        "lyrics": "Así el canalla recibió su merecido,",
-        "lyricsChinese": "一来是老儿命该丧，",
+        "lyrics": {
+          "zh": "一来是老儿命该丧，",
+          "es": "Así el canalla recibió su merecido,",
+          "en": "Thus the scoundrel ended his life,"
+        },
         "start": 187.61,
         "end": 190.18
       },
       {
-        "lyrics": "y los hermanos al final se reconciliaron.",
-        "lyricsChinese": "二来弟兄得团圆。",
+        "lyrics": {
+          "zh": "二来弟兄得团圆。",
+          "es": "y los hermanos al final se reconciliaron.",
+          "en": "and also the brothers reunited."
+        },
         "start": 190.46,
         "end": 193.29
       },
       {
-        "lyrics": "\"Querido hermano, no vuelvas a Chang'an\", dijo,",
-        "lyricsChinese": "贤弟休回长安转，",
+        "lyrics": {
+          "zh": "贤弟休回长安转，",
+          "es": "\"Querido hermano, no vuelvas a Chang'an\", dijo,",
+          "en": "\"Worthy brother, do not return to Chang'an,\" said,"
+        },
         "start": 193.61,
         "end": 196.42
       },
       {
-        "lyrics": "y aquí en Shatuo pasó varios años,",
-        "lyricsChinese": "就在这沙陀过几年、",
+        "lyrics": {
+          "zh": "就在这沙陀过几年、",
+          "es": "y aquí en Shatuo pasó varios años,",
+          "en": "and here in Shatuo spent several years,"
+        },
         "start": 196.42,
         "end": 203.38
       },
       {
-        "lyrics": "disfrutando una vida relajada.",
-        "lyricsChinese": "落得个清闲。",
+        "lyrics": {
+          "zh": "落得个清闲。",
+          "es": "disfrutando una vida relajada.",
+          "en": "enjoying a relaxed life."
+        },
         "start": 206.45,
         "end": 226.66
       }
     ]
   },
   "c0c14e22-1295-4b44-bad4-8ad95bef6898": {
-    "aria": "Mi querido padre, generosamente, compondrá una súplica",
-    "ariaChinese": "“老爹爹发恩德将本修上”",
-    "play": "La espada Universo",
-    "playChinese": "《宇宙锋》",
-    "character": "Zhao Yanrong",
-    "characterChinese": "赵艳容",
-    "artist": "Song Ruoxuan",
-    "artistChinese": "宋若萱",
-    "hangdang": "旦",
-    "roleType": "dan",
-    "jinghu": "Fu Yanchen",
-    "jinghuChinese": "付艳琛",
+    "aria": {
+      "zh": "“老爹爹发恩德将本修上”",
+      "es": "Mi querido padre, generosamente, compondrá una súplica",
+      "en": "My beloved father, generously, will write a petition"
+    },
+    "play": {
+      "zh": "《宇宙锋》",
+      "es": "La espada Universo",
+      "en": "The Universe Sword"
+    },
+    "character": {
+      "zh": "赵艳容",
+      "wy": "Zhao Yanrong"
+    },
+    "artist": {
+      "zh": "宋若萱",
+      "wy": "Song Ruoxuan"
+    },
+    "hangdang": {
+      "zh": "旦",
+      "wy": "dan"
+    },
+    "jinghu": {
+      "zh": "付艳琛",
+      "wy": "Fu Yanchen"
+    },
     "info": "https://musicbrainz.org/recording/c0c14e22-1295-4b44-bad4-8ad95bef6898",
     "duration": 150.62,
     "banshi": [
@@ -1846,44 +1940,67 @@
     ],
     "lyrics": [
       {
-        "lyrics": "Mi querido padre, generosamente, compondrá una súplica,",
-        "lyricsChinese": "老爹爹发恩德将本修上，",
+        "lyrics": {
+          "zh": "老爹爹发恩德将本修上，",
+          "es": "Mi querido padre, generosamente, compondrá una súplica,",
+          "en": "My beloved father, generously, will write a petition,"
+        },
         "start": 18.81,
         "end": 44.0
       },
       {
-        "lyrics": "y mañana al alba subirá al Palacio Dorado a presentarla ante mi emperador.",
-        "lyricsChinese": "明早朝上金殿面奏吾皇。",
+        "lyrics": {
+          "zh": "明早朝上金殿面奏吾皇。",
+          "es": "y mañana al alba subirá al Palacio Dorado a presentarla ante mi emperador.",
+          "en": "and tomorrow at dawn he will got to the Golden Palace to offer it to the Empereor."},
         "start": 59.23,
         "end": 80.54
       },
       {
-        "lyrics": "Si por fortuna fuera un señor virtuoso, y la gracia imperial inmensa,",
-        "lyricsChinese": "倘若是有道君皇恩浩荡，",
+        "lyrics": {
+          "zh": "倘若是有道君皇恩浩荡，",
+          "es": "Si por fortuna fuera un señor virtuoso, y la gracia imperial inmensa,",
+          "en": "If by good fortune he were a virtuous lord, and the Imperial grace immense,"},
         "start": 99.92,
         "end": 117.72
       },
       {
-        "lyrics": "al ver la súplica librará a esta hija de la desgracia.",
-        "lyricsChinese": "观此本免了儿一门祸殃。",
+        "lyrics": {
+          "zh": "观此本免了儿一门祸殃。",
+          "es": "al ver la súplica librará a esta hija de la desgracia.",
+          "en": "reading this petition he will spare this daughter a calamity."},
         "start": 118.33,
         "end": 147.22
       }
     ]
   },
   "0ed40f21-0011-45f3-885d-f9bcad79d99f": {
-    "aria": "Viendo a mi rey en la tienda, con sus ropajes dormido plácidamente",
-    "ariaChinese": "“看大王在帐中和衣睡稳”",
-    "play": "El soberano se despide de su concubina",
-    "playChinese": "《霸王别姬》",
-    "character": "Concubina Yu",
-    "characterChinese": "虞姬",
-    "artist": "Song Ruoxuan",
-    "artistChinese": "宋若萱",
-    "hangdang": "旦",
-    "roleType": "dan",
-    "jinghu": "Fu Yanchen",
-    "jinghuChinese": "付艳琛",
+    "aria": {
+      "zh": "“看大王在帐中和衣睡稳”",
+      "es": "Viendo a mi rey en la tienda, con sus ropajes dormido plácidamente",
+      "en": "Looking at my king in the tent, quietly sleeping on his garments"
+    },
+    "play": {
+      "zh": "《霸王别姬》",
+      "es": "El soberano se despide de su concubina",
+      "en": "The sobereign says farewell to his concubine"
+    },
+    "character": {
+      "zh": "虞姬",
+      "wy": "Concubina Yu"
+    },
+    "artist": {
+      "zh": "宋若萱",
+      "wy": "Song Ruoxuan"
+    },
+    "hangdang": {
+      "zh": "旦",
+      "wy": "dan"
+    },
+    "jinghu": {
+      "zh": "付艳琛",
+      "wy": "Fu Yanchen"
+    },
     "info": "https://musicbrainz.org/recording/0ed40f21-0011-45f3-885d-f9bcad79d99f",
     "duration": 175,
     "banshi": [
@@ -2675,44 +2792,70 @@
     ],
     "lyrics": [
       {
-        "lyrics": "Viendo a mi rey en la tienda, con sus ropajes dormido plácidamente,",
-        "lyricsChinese": "看大王在帐中和衣睡稳，",
+        "lyrics": {
+          "zh": "看大王在帐中和衣睡稳，",
+          "es": "Viendo a mi rey en la tienda, con sus ropajes dormido plácidamente,",
+          "en": "Looking at my king in the tent, quietly sleeping on his garments,"
+        },
         "start": 30.47,
         "end": 67.36
       },
       {
-        "lyrics": "yo aquí salgo de la tienda a disipar mis pesares.",
-        "lyricsChinese": "我这里出帐外且散愁情。",
+        "lyrics": {
+          "zh": "我这里出帐外且散愁情。",
+          "es": "yo aquí salgo de la tienda a disipar mis pesares.",
+          "en": "I, here out of the tent, dissipate my sorrows."
+        },
         "start": 77.27,
         "end": 103.09
       },
       {
-        "lyrics": "con paso sutil avanzo, y me detengo en las inmediaciones desoladas,",
-        "lyricsChinese": "轻移步走向前荒郊站定，",
+        "lyrics": {
+          "zh": "轻移步走向前荒郊站定，",
+          "es": "Con paso sutil avanzo, y me detengo en las inmediaciones desoladas,",
+          "en": "With gentle step I come forward, and stop in the desolate surroundings,"
+        },
         "start": 111.62,
         "end": 147.07
       },
       {
-        "lyrics": "y al levantar la cabeza veo haces de jade, luz de luna clara y resplandeciente.",
-        "lyricsChinese": "猛抬头见碧落月色清明。",
+        "lyrics": {
+          "zh": "猛抬头见碧落月色清明。",
+          "es": "y al levantar la cabeza veo haces de jade, luz de luna clara y resplandeciente.",
+          "en": "and raising my head see pouring jade, clear and shining moonlight."
+        },
         "start": 147.66,
         "end": 173.0
       }
     ]
   },
   "ead85d20-ce7d-4ed0-a00d-0ae199b94d12": {
-    "aria": "Suspiro por la casa de los Yang",
-    "ariaChinese": "“叹杨家投宋主心血用尽”",
-    "play": "La cueva del Gran Carnero",
-    "playChinese": "《洪羊洞》",
-    "character": "Yang Yanzhao",
-    "characterChinese": "杨延昭",
-    "artist": "Tian Hao",
-    "artistChinese": "田昊",
-    "hangdang": "老生",
-    "roleType": "laosheng",
-    "jinghu": "Zhang Lantian",
-    "jinghuChinese": "张蓝天",
+    "aria": {
+      "zh": "“叹杨家投宋主心血用尽”",
+      "es": "Suspiro por la casa de los Yang",
+      "en": "I sigh for the house of Yang"
+    },
+    "play": {
+      "zh": "《洪羊洞》",
+      "es": "La cueva del Gran Carnero",
+      "en": "The Cave of the Great Goat"
+    },
+    "character": {
+      "zh": "杨延昭",
+      "wy": "Yang Yanzhao"
+    },
+    "artist": {
+      "zh": "田昊",
+      "wy": "Tian Hao"
+    },
+    "hangdang": {
+      "zh": "老生",
+      "wy": "laosheng"
+    },
+    "jinghu": {
+      "zh": "张蓝天",
+      "wy": "Zhang Lantian"
+    },
     "info": "https://musicbrainz.org/recording/ead85d20-ce7d-4ed0-a00d-0ae199b94d12",
     "duration": 220,
     "banshi": [
@@ -3833,44 +3976,70 @@
     ],
     "lyrics": [
       {
-        "lyrics": "Suspiro por la casa de los Yang que virtió al señor de los Song sangre y alma hasta la extenuación,",
-        "lyricsChinese": "叹杨家投宋主心血用尽，",
+        "lyrics": {
+          "zh": "叹杨家投宋主心血用尽，",
+          "es": "Suspiro por la casa de los Yang que vertió por el señor de los Song sangre y alma hasta la extenuación,",
+          "en": "I sigh for the house of Yang, who for the Song rulers exhausted blood and soul,"
+        },
         "start": 27.77,
         "end": 74.08
       },
       {
-        "lyrics": "y hondamente suspiro por los generales Jiao y Meng, que perdieron su vida en tierra enemiga.",
-        "lyricsChinese": "真可叹焦孟将命丧番营。",
+        "lyrics": {
+          "zh": "真可叹焦孟将命丧番营。",
+          "es": "y hondamente suspiro por los generales Jiao y Meng, que perdieron su vida en tierra enemiga.",
+          "en": "and deeply sigh for the generals Jiao and Meng, who lost their life in enemy land."
+        },
         "start": 91.09,
         "end": 123.18
       },
       {
-        "lyrics": "Zongbao, hijo, ayuda a tu padre hasta el diván para reposar la cabeza,",
-        "lyricsChinese": "宗保儿搀为父软榻靠枕，",
+        "lyrics": {
+          "zh": "宗保儿搀为父软榻靠枕，",
+          "es": "Zongbao, hijo, ayuda a tu padre hasta el diván para reposar la cabeza,",
+          "en": "Zongbao, my son, help your father to the coach, so I can rest my head,"
+        },
         "start": 132.15,
         "end": 174.3
       },
       {
-        "lyrics": "aunque temo que no podré aguantar los días que aún me quedan.",
-        "lyricsChinese": "怕只怕熬不过尺寸光阴。",
+        "lyrics": {
+          "zh": "怕只怕熬不过尺寸光阴。",
+          "es": "aunque temo que no podré aguantar los días que aún me quedan.",
+          "en": "algouth I fear I will not stand the days ahead of me."
+        },
         "start": 197.39,
         "end": 216.1
       }
     ]
   },
   "8431aa0f-a3f6-4514-b225-dfd9e9e16f18": {
-    "aria": "Yang Yuhuan frente a palacio presenta su honda ofrenda",
-    "ariaChinese": "“杨玉环在殿前深深拜定”",
-    "play": "La historia de Taizhen",
-    "playChinese": "《太真外传》",
-    "character": "Yang Yuhuan",
-    "characterChinese": "杨玉环",
-    "artist": "Song Ruoxuan",
-    "artistChinese": "宋若萱",
-    "hangdang": "旦",
-    "roleType": "dan",
-    "jinghu": "Fu Yanchen",
-    "jinghuChinese": "付艳琛",
+    "aria": {
+      "zh": "“杨玉环在殿前深深拜定”",
+      "es": "Yang Yuhuan frente a palacio presenta su honda ofrenda",
+      "en": "Yang Yuhuan in front of the palace presents her offering"
+    },
+    "play": {
+      "zh": "《太真外传》",
+      "es": "La historia de Taizhen",
+      "en": "The story of Taizhen"
+    },
+    "character": {
+      "zh": "杨玉环",
+      "wy": "Yang Yuhuan"
+    },
+    "artist": {
+      "zh": "宋若萱",
+      "wy": "Song Ruoxuan"
+    },
+    "hangdang": {
+      "zh": "旦",
+      "wy": "dan"
+    },
+    "jinghu": {
+      "zh": "付艳琛",
+      "wy": "Fu Yanchen"
+    },
     "info":  "https://musicbrainz.org/recording/8431aa0f-a3f6-4514-b225-dfd9e9e16f18",
     "duration": 141.94,
     "banshi": [
@@ -4486,68 +4655,106 @@
     ],
     "lyrics": [
       {
-        "lyrics": "Yang Yuhuan frente a palacio presenta su honda ofrenda,",
-        "lyricsChinese": "杨玉环在殿前深深拜定，",
+        "lyrics": {
+          "zh": "杨玉环在殿前深深拜定，",
+          "es": "Yang Yuhuan frente a palacio presenta su honda ofrenda,",
+          "en": "Yang Yuhuan in front of the palace presents her offering,"
+        },
         "start": 4.38,
         "end": 16.81
       },
       {
-        "lyrics": "y en pía devoción, una a una dirige sus súplicas a los dos astros.",
-        "lyricsChinese": "秉虔诚一件件祝告双星。",
+        "lyrics": {
+          "zh": "秉虔诚一件件祝告双星。",
+          "es": "y en pía devoción, una a una dirige sus súplicas a los dos astros.",
+          "en": "and in pious devotion, one by one addresses her prayers to the paired stars."
+        },
         "start": 18.08,
         "end": 29.71
       },
       {
-        "lyrics": "Primera súplica: que el amor sellado por la orquilla y el joyero dure eternamente.",
-        "lyricsChinese": "一愿那钗与盒情缘永定，",
+        "lyrics": {
+          "zh": "一愿那钗与盒情缘永定，",
+          "es": "Primera súplica: que el amor sellado por la orquilla y el joyero dure eternamente.",
+          "en": "First prayer: may the love sealed by the hairpin and the jewel box last forever."
+        },
         "start": 31.05,
         "end": 42.29
       },
       {
-        "lyrics": "Segunda súplica: que mi benevolente y virtuoso señor tenga una vida próspera y longeva.",
-        "lyricsChinese": "二愿那仁德君福寿康宁，",
+        "lyrics": {
+          "zh": "二愿那仁德君福寿康宁，",
+          "es": "Segunda súplica: que mi benevolente y virtuoso señor tenga una vida próspera y longeva.",
+          "en": "Second prayer: may my gracious and virtuous lord enjoy a prosperous and long life."
+        },
         "start": 43.52,
         "end": 54.41
       },
       {
-        "lyrics": "Tercera súplica: que el universo sea justo y haya paz en la tierra.",
-        "lyricsChinese": "三愿那海宇清四方平靖，",
+        "lyrics": {
+          "zh": "三愿那海宇清四方平靖，",
+          "es": "Tercera súplica: que el universo sea justo y haya paz en la tierra.",
+          "en": "Third prayer: may the universe be fair and peace fill the earth."
+        },
         "start": 55.53,
         "end": 66.67
       },
       {
-        "lyrics": "Cuarta súplica: que la Costurera Celestial ceda sus galas y joyas a esta humilde sierva.",
-        "lyricsChinese": "四愿那七巧镂、乞天孙、支叽石上今日里借与奴身。",
+        "lyrics": {
+          "zh": "四愿那七巧镂、乞天孙、支叽石上今日里借与奴身。",
+          "es": "Cuarta súplica: que la Costurera Celestial ceda sus galas y joyas a esta humilde sierva.",
+          "en": "Fourth prayer: may the Heavenly Weaver bestow her finery and jewels to her humble servant."
+        },
         "start": 67.66,
         "end": 86.13
       },
       {
-        "lyrics": "Acabo mis reverencias y me yergo, la clara luz vierte su reflejo.",
-        "lyricsChinese": "叩罢头将身起清光泻影，",
+        "lyrics": {
+          "zh": "叩罢头将身起清光泻影，",
+          "es": "Acabo mis reverencias y me yergo, la clara luz vierte su reflejo.",
+          "en": "I finish my prayers and rise, and a clear light pours its reflection."
+        },
         "start": 86.6,
         "end": 111.77
       },
       {
-        "lyrics": "Llamaré a las doncellas para que el aguamanil dorado saquen al corazón de la sala.",
-        "lyricsChinese": "叫宫娥将金盆捧到庭心。",
+        "lyrics": {
+          "zh": "叫宫娥将金盆捧到庭心。",
+          "es": "Llamaré a las doncellas para que el aguamanil dorado saquen al corazón de la sala.",
+          "en": "I call the maids to bring the golden ewer to the heart of the hall."
+        },
         "start": 117.94,
         "end": 138.94
       }
     ]
   },
   "b1584010-c1f6-4e54-9c5e-eb6f76c45804": {
-    "aria": "El cuervo dorado desciende, la liebre de jade asciende, llega el ocaso",
-    "ariaChinese": "“金乌坠玉免升黄昏时候”",
-    "play": "La lápida de Li Ling",
-    "playChinese": "《李陵碑》",
-    "character": "Yang Jiye",
-    "characterChinese": "杨继业",
-    "artist": "Tian Hao",
-    "artistChinese": "田昊",
-    "hangdang": "老生",
-    "roleType": "laosheng",
-    "jinghu": "Zhang Lantian",
-    "jinghuChinese": "张蓝天",
+    "aria": {
+      "zh": "“金乌坠玉兔升黄昏时候”",
+      "es": "El cuervo dorado desciende, la liebre de jade asciende, llega el ocaso",
+      "en": "The golden crow falls, the jade hare rises, sunset time"
+    },
+    "play": {
+      "zh": "《李陵碑》",
+      "es": "La lápida de Li Ling",
+      "en": "Li Ling's Stele"
+    },
+    "character": {
+      "zh": "杨继业",
+      "wy": "Yang Jiye"
+    },
+    "artist": {
+      "zh": "田昊",
+      "wy": "Tian Hao"
+    },
+    "hangdang": {
+      "zh": "老生",
+      "wy": "laosheng"
+    },
+    "jinghu": {
+      "zh": "张蓝天",
+      "wy": "Zhang Lantian"
+    },
     "info":  "https://musicbrainz.org/recording/b1584010-c1f6-4e54-9c5e-eb6f76c45804",
     "duration": 249.41,
     "banshi": [
@@ -5420,50 +5627,74 @@
     ],
     "lyrics": [
       {
-        "lyrics": "El cuervo dorado desciende, la liebre de jade asciende, llega el ocaso",
-        "lyricsChinese": "金乌坠玉免升黄昏时候，",
+        "lyrics": {
+          "zh": "金乌坠玉免升黄昏时候，",
+          "es": "El cuervo dorado desciende, la liebre de jade asciende, llega el ocaso",
+          "en": "The golden crow falls, the jade hare rises, sunset time,"
+        },
         "start": 21.93,
         "end": 79.27
       },
       {
-        "lyrics": "y expectante por mi amado hijo no puedo evitar el correr de mis lágrimas. ¡Ay, hijo mío!",
-        "lyricsChinese": "盼娇儿不由人珠泪双流，我的儿啊！",
+        "lyrics":{
+          "zh": "盼娇儿不由人珠泪双流，我的儿啊！",
+          "es": "y expectante por mi amado hijo no puedo evitar el correr de mis lágrimas. ¡Ay, hijo mío!",
+          "en": "and longing for my beloved son I can restrain my tears. Oh, my son!"
+        },
         "start": 84.55,
         "end": 115.46
       },
       {
-        "lyrics": "Mi séptimo hijo regresó a Yanmen para buscar refuerzos y pedir ayuda,",
-        "lyricsChinese": "七郎儿回雁门搬兵求救，",
+        "lyrics": {
+          "zh": "七郎儿回雁门搬兵求救，",
+          "es": "Mi séptimo hijo regresó a Yanmen para buscar refuerzos y pedir ayuda,",
+          "en": "My seventh son went back to Yanmen to seek reinforcements and ask for help,"
+        },
         "start": 130.69,
         "end": 154.01
       },
       {
-        "lyrics": "¿cómo es que tras su marcha aún no veo su regreso?",
-        "lyricsChinese": "为什么此一去不见回头？",
+        "lyrics": {
+          "zh": "为什么此一去不见回头？",
+          "es": "¿cómo es que tras su marcha aún no veo su regreso?",
+          "en": "after this time gone, why I can not see his return?"
+        },
         "start": 165.6,
         "end": 174.75
       },
       {
-        "lyrics": "Temo que ese Pan Renmei recuerde la anterior afrenta,",
-        "lyricsChinese": "唯恐那潘仁美记起前仇，",
+        "lyrics": {
+          "zh": "唯恐那潘仁美记起前仇，",
+          "es": "Temo que ese Pan Renmei recuerde la anterior afrenta,",
+          "en": "I fear that Pan Renmei recalled the former affront,"
+        }
         "start": 179.6,
         "end": 195.83
       },
       {
-        "lyrics": "lo que temo es que mi hijo haya agotado su vida.",
-        "lyricsChinese": "怕的是我的儿一命罢休。",
+        "lyrics": {
+          "zh": "怕的是我的儿一命罢休。",
+          "es": "lo que temo es que mi hijo haya agotado su vida.",
+          "en": "and I fear that my son's life has been exhausted."
+        }
         "start": 196.39,
         "end": 203.07
       },
       {
-        "lyrics": "Tragando amargas lágrimas, entro al campamento con la angustia en el ceño,",
-        "lyricsChinese": "含悲泪进大营双眉愁皱，",
+        "lyrics": {
+          "zh": "含悲泪进大营双眉愁皱，",
+          "es": "Tragando amargas lágrimas, entro al campamento con la angustia en el ceño,",
+          "en": "Swallowing bitter tears, I enter the camp with anguish in my frown,"
+        },
         "start": 203.38,
         "end": 221.18
       },
       {
-        "lyrics": "hambre en el vientre, frío en el cuerpo, empapado de lluvia y viento.",
-        "lyricsChinese": "腹内饥身寒冷遍体飕飕。",
+        "lyrics": {
+          "zh": "腹内饥身寒冷遍体飕飕。",
+          "es": "hambre en el vientre, frío en el cuerpo, empapado de lluvia y viento.",
+          "en": "hunger in the stomach, cold in the body, drenched in rain and wind."
+        },
         "start": 225.69,
         "end": 245.55
       }

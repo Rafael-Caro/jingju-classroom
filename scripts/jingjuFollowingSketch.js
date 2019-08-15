@@ -3,6 +3,8 @@ var mainWidth = 1000;
 var leftExtraSpace = 0;
 var topExtraSpace = 0;
 
+var version;
+var lang;
 var recordingsInfo;
 var pitchTrack;
 
@@ -11,11 +13,8 @@ var accTrack;
 var banguTrack;
 
 var aria;
-var ariaChinese;
 var play;
-var playChinese;
 var character;
-var characterChinese;
 
 var selectMenu;
 var langButton;
@@ -65,8 +64,48 @@ var visualization = 'lines';
 var headingLeft;
 var headingX;
 
+var htmls = {
+  "play": {
+    "en": "Play",
+    "es": "Toca"
+  },
+  "pause": {
+    "en": "Pause",
+    "es": "Pausa"
+  },
+  "continue": {
+    "en": "Play",
+    "es": "Sigue"
+  },
+  "melody": {
+    "en": "Melody",
+    "es": "Melodía"
+  },
+  "lines": {
+    "en": "Lyrics",
+    "es": "Versos"
+  },
+  "voice": {
+    "en": " voice",
+    "es": " voz"
+  },
+  "select": {
+    "en": "Select",
+    "es": "Elige"
+  },
+  "scattered": {
+    "en": "scattered",
+    "es": "disperso"
+  }
+}
+
 function preload () {
-  recordingsInfo = loadJSON("files/recordingsInfo.json");
+  version = document.documentElement.lang;
+  if (version == 'en') {
+    recordingsInfo = loadJSON("files/recordingsInfo.json");
+  } else if (version == 'es') {
+    recordingsInfo = loadJSON("../files/recordingsInfo.json");
+  }
 }
 
 function setup () {
@@ -83,7 +122,7 @@ function setup () {
     .position(leftExtraSpace+10, topExtraSpace+10)
     .changed(start)
     .parent("sketch-holder");
-  selectMenu.option("Elige");
+  selectMenu.option(htmls.select[version]);
   var noRec = selectMenu.child();
   noRec[0].setAttribute("selected", "true");
   noRec[0].setAttribute("disabled", "true");
@@ -92,8 +131,8 @@ function setup () {
   var mbids = Object.keys(recordingsInfo)
   for (var i = 0; i < mbids.length; i++) {
     var mbid = mbids[i]
-    var aria = recordingsInfo[mbid].aria;
-    var roleType0 = recordingsInfo[mbid].roleType;
+    var aria = recordingsInfo[mbid].aria[version];
+    var roleType0 = recordingsInfo[mbid].hangdang.wy;
     var roleType = roleType0.charAt(0).toUpperCase() + roleType0.slice(1);
     var banshi = recordingsInfo[mbid].banshi;
     var banshis = [];
@@ -121,14 +160,14 @@ function setup () {
     .parent("sketch-holder")
     .attribute("disabled", "true");
 
-  playButton = createButton("Toca")
+  playButton = createButton(htmls.play[version])
     .size(100, 50)
     .position(leftExtraSpace+10, selectMenu.position()['y']+selectMenu.height+10)
     .mousePressed(player)
     .parent("sketch-holder")
     .attribute("disabled", "true");
 
-  voiceToggle = createCheckbox(' voz', true)
+  voiceToggle = createCheckbox(htmls.voice[version], true)
     .position(leftExtraSpace+10, lyricsBoxTop)
     .changed(muteTrack)
     .parent("sketch-holder");
@@ -178,7 +217,7 @@ function setup () {
 function draw () {
   background(255, 255, 204);
 
-  if (selectMenu.value() != 'Elige') {
+  if (selectMenu.value() != htmls.select[version]) {
     textAlign(CENTER, TOP);
     stroke(0);
     strokeWeight(5);
@@ -281,6 +320,7 @@ function start () {
     accTrack.stop();
     banguTrack.stop();
   }
+  lang = version;
   var mbid = selectMenu.value()
   audioLoader(mbid);
   loaded = false;
@@ -295,12 +335,18 @@ function start () {
   cents = [];
   louds = [];
   scaleLines = [];
-  playButton.html("Toca");
+  playButton.html(htmls.play[version]);
   playButton.attribute("disabled", "true");
-  visButton.html("Melodía");
+  visButton.html(htmls.melody[version]);
   visButton.attribute("disabled", "true");
 
-  pitchTrack = loadJSON('files/pitchTracks/' + mbid + '-pitchTrack.json', pitchAndLoudness);
+  var root;
+  if (lang == "es") {
+    root = "../files/pitchTracks/"
+  } else {
+    root = "files/pitchTracks/"
+  }
+  pitchTrack = loadJSON(root + mbid + '-pitchTrack.json', pitchAndLoudness);
 
   langButton.removeAttribute("disabled");
   langButton.html("中");
@@ -320,15 +366,12 @@ function start () {
   var recording = recordingsInfo[mbid];
   credits = new CreateCredits(recording);
   aria = recording.aria;
-  ariaChinese = recording.ariaChinese;
   play = recording.play;
-  playChinese = recording.playChinese;
   character = recording.character;
-  characterChinese = recording.characterChinese;
-  title = '"' + aria + '"';
-  subtitle = play + ' (' + character + ')';
+  title = '"' + aria[version] + '"';
+  subtitle = play[version] + ' (' + character.wy + ')';
   trackDuration = recording.duration;
-  var roleType = recording.roleType;
+  var roleType = recording.hangdang.wy;
   if (roleType == 'laosheng') {
     scaleCents = [-1200, -1000, -800, -500, -300, 0, 200, 400, 700, 900, 1200];
     scaleDegrees = [1, 2, 3, 5, 6, 1, 2, 3, 5, 6, 1];
@@ -377,9 +420,9 @@ function start () {
 
 function CreateCredits (recording) {
   textSize(15);
-  this.artist = [recording.artist + '    |    ', recording.artistChinese + '    |    '];
-  this.roleType = [recording.roleType + ': ', recording.hangdang + '：'];
-  this.jinghuArtist = [recording.jinghu, recording.jinghuChinese];
+  this.artist = [recording.artist.wy + '    |    ', recording.artist.zh + '    |    '];
+  this.roleType = [recording.hangdang.wy + ': ', recording.hangdang.zh + '：'];
+  this.jinghuArtist = [recording.jinghu.wy, recording.jinghu.zh];
   this.jinghu = ['jinghu: ', '京胡：'];
   this.txtX = [headingX - (textWidth(this.roleType[0]) + textWidth(this.artist[0]) + textWidth(this.jinghu[0]) +
    textWidth(this.jinghuArtist[0]) + 20)/2, headingX - (textWidth(this.roleType[1]) + textWidth(this.artist[1]) +
@@ -388,7 +431,7 @@ function CreateCredits (recording) {
 
   this.display = function () {
     var i;
-    if (langButton.html() =="ES") {
+    if (lang == "zh") {
       i = 1;
     } else {
       i = 0;
@@ -461,7 +504,7 @@ function CreateCursor () {
     this.x = map(currentTime, 0, trackDuration, navigationBox.x1+cursorW/2, navigationBox.x2-cursorW/2);
     if (navigationBox.x2 - cursorW/2 - this.x < 0.1) {
       print('stop');
-      playButton.html("Toca");
+      playButton.html(htmls.play[version]);
       banguTrack.stop();
       voiceTrack.stop();
       accTrack.stop();
@@ -479,12 +522,12 @@ function CreateCursor () {
 }
 
 function visChange () {
-  if (visButton.html() == 'Melodía') {
-    visButton.html('Versos');
+  if (visButton.html() == htmls.melody[version]) {
+    visButton.html(htmls.lines[version]);
     visualization = 'melody';
-  } else if (visButton.html() == 'Versos') {
+  } else if (visButton.html() == htmls.lines[version]) {
     visualization = 'lines';
-    visButton.html('Melodía');
+    visButton.html(htmls.melody[version]);
   }
 }
 
@@ -502,8 +545,8 @@ function CreateLyricsBox (lyrics, i) {
   this.stroke = color(255, 255, 204, 100);
   this.txtBack = color(255, 0);
   this.lyrics = lyrics.lyrics;
-  this.lyricsChinese = lyrics.lyricsChinese;
-  this.lyrics2display;
+  // this.lyricsChinese = lyrics.lyricsChinese;
+  // this.lyrics2display;
   this.hidden;
 
   this.update = function () {
@@ -521,11 +564,11 @@ function CreateLyricsBox (lyrics, i) {
       this.stroke = color(255, 255, 204, 100);
       this.txtBack = color(255, 0);
     }
-    if (langButton.html() == "中") {
-      this.lyrics2display = this.lyrics;
-    } else {
-      this.lyrics2display = this.lyricsChinese;
-    }
+    // if (langButton.html() == "中") {
+    //   this.lyrics2display = this.lyrics;
+    // } else {
+    //   this.lyrics2display = this.lyricsChinese;
+    // }
   }
 
   this.display = function () {
@@ -545,7 +588,7 @@ function CreateLyricsBox (lyrics, i) {
       textSize(15);
       fill(0);
       if (visualization == 'lines') {
-        text(this.lyrics2display, this.lx1+10, this.ly1+lyricsShift, this.lx2-this.lx1, 20);
+        text(this.lyrics[lang], this.lx1+10, this.ly1+lyricsShift, this.lx2-this.lx1, 20);
       }
     } else {
       this.hidden = true;
@@ -672,7 +715,7 @@ function CreateBpm () {
     var bpm = pitchTrack[i].bpm;
     if (bpm=='s') {
       this.style = ITALIC;
-      this.bpm = 'disperso';
+      this.bpm = htmls.scattered[version];
     } else if (bpm=='') {
       this.bpm = '';
     } else {
@@ -758,9 +801,15 @@ function pitchAndLoudness () {
 }
 
 function audioLoader (mbid) {
-  banguTrack = loadSound("tracks/" + mbid + "-bangu.mp3");
-  voiceTrack = loadSound("tracks/" + mbid + "-voice.mp3");
-  accTrack = loadSound("tracks/" + mbid + "-acc.mp3", function () {
+  var root;
+  if (lang == "es") {
+    root = "../tracks/"
+  } else {
+    root = "tracks/"
+  }
+  banguTrack = loadSound(root + mbid + "-bangu.mp3");
+  voiceTrack = loadSound(root + mbid + "-voice.mp3");
+  accTrack = loadSound(root + mbid + "-acc.mp3", function () {
     playButton.removeAttribute("disabled");
     visButton.removeAttribute("disabled");
     loaded=true;
@@ -780,7 +829,7 @@ function player () {
     voiceTrack.pause();
     accTrack.pause();
     playing = false;
-    playButton.html("Sigue");
+    playButton.html(htmls.continue[version]);
   } else {
     if (jump == undefined) {
       banguTrack.play();
@@ -796,7 +845,7 @@ function player () {
       jump = undefined;
     }
     playing = true;
-    playButton.html("Pausa");
+    playButton.html(htmls.pause[version]);
   }
 }
 
@@ -827,14 +876,16 @@ function updateVolume () {
 }
 
 function langChange () {
-  if (langButton.html() == "中") {
-    title = ariaChinese;
-    subtitle = playChinese + " （" + characterChinese + "）"
-    langButton.html("ES");
-  } else {
-    title = '"' + aria + '"';
-    subtitle = play + ' (' + character + ')';
+  if (lang == "zh") {
+    lang = version;
+    title = aria[lang];
+    subtitle = play[lang] + " （" + character.wy + "）";
     langButton.html("中");
+  } else {
+    lang = "zh";
+    title = '"' + aria[lang] + '"';
+    subtitle = play[lang] + ' (' + character.zh + ')';
+    langButton.html(version.toUpperCase());
   }
 }
 

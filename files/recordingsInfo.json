@@ -1952,7 +1952,7 @@
         "lyrics": {
           "zh": "明早朝上金殿面奏吾皇。",
           "es": "y mañana al alba subirá al Palacio Dorado a presentarla ante mi emperador.",
-          "en": "and tomorrow at dawn he will got to the Golden Palace to offer it to the Empereor."},
+          "en": "and tomorrow at dawn he will got to the Golden Palace to offer it to the Emperor."},
         "start": 59.23,
         "end": 80.54
       },
@@ -1968,7 +1968,7 @@
         "lyrics": {
           "zh": "观此本免了儿一门祸殃。",
           "es": "al ver la súplica librará a esta hija de la desgracia.",
-          "en": "reading this petition he will spare this daughter a calamity."},
+          "en": "after reading this petition he will spare this daughter a calamity."},
         "start": 118.33,
         "end": 147.22
       }
@@ -2822,7 +2822,7 @@
         "lyrics": {
           "zh": "猛抬头见碧落月色清明。",
           "es": "y al levantar la cabeza veo haces de jade, luz de luna clara y resplandeciente.",
-          "en": "and raising my head see pouring jade, clear and shining moonlight."
+          "en": "and raising my head I see pouring jade, clear and shining moonlight."
         },
         "start": 147.66,
         "end": 173.0
@@ -4017,7 +4017,7 @@
     "aria": {
       "zh": "“杨玉环在殿前深深拜定”",
       "es": "Yang Yuhuan frente a palacio presenta su honda ofrenda",
-      "en": "Yang Yuhuan in front of the palace presents her offering"
+      "en": "Yang Yuhuan in front of the palace presents her offerings"
     },
     "play": {
       "zh": "《太真外传》",
@@ -4658,7 +4658,7 @@
         "lyrics": {
           "zh": "杨玉环在殿前深深拜定，",
           "es": "Yang Yuhuan frente a palacio presenta su honda ofrenda,",
-          "en": "Yang Yuhuan in front of the palace presents her offering,"
+          "en": "Yang Yuhuan in front of the palace presents her offerings,"
         },
         "start": 4.38,
         "end": 16.81
@@ -5639,7 +5639,7 @@
         "lyrics":{
           "zh": "盼娇儿不由人珠泪双流，我的儿啊！",
           "es": "y expectante por mi amado hijo no puedo evitar el correr de mis lágrimas. ¡Ay, hijo mío!",
-          "en": "and longing for my beloved son I can restrain my tears. Oh, my son!"
+          "en": "and longing for my beloved son I can not restrain my tears. Oh, my son!"
         },
         "start": 84.55,
         "end": 115.46
